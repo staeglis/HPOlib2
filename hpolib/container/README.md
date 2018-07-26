@@ -1,5 +1,5 @@
-This folder contains a prototype for running HPOlib2 as containers. At the
-moment it uses Singularity. So you have to install Singularity first:
+This folder contains a prototype for running HPOlib2 becnhmaks as containers.
+At the moment it uses Singularity. So you have to install Singularity first:
 https://singularity.lbl.gov/install-linux
 
 The mechanism used is known as RPC and is implemented by Pyro4. For runnung the
