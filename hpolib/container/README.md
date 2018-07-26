@@ -11,4 +11,5 @@ a server class. The server class orientates on the original API and runs inside
 the container. Both classes are using JSON and Pyro4 to communicate.
 
 There is also an modified example. To run it you need an actual git snapshot of
-ConfigSpace.
+ConfigSpace. Also you need Pyro4. On Ubuntu you can install it with
+* sudo apt install pyro4 python3-pyro4 -y
