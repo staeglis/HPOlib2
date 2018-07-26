@@ -16,8 +16,10 @@ from ConfigSpace.read_and_write import json as csjson
 class Branin():
     def __init__(self):
         #subprocess.call(['python3', 'server.py', '&'])
-        os.system("singularity run /tmp/Branin.img &")
-        time.sleep(1)
+        if not os.path.exists("Branin.img"):
+            os.system("singularity pull --name Branin.img shub://staeglis/HPOlib2:branin")
+        os.system("singularity run Branin.img &")
+        time.sleep(10)
         
         #Pyro4.config.SERIALIZER="cloudpickle"
         #Pyro4.config.SERIALIZERS_ACCEPTED = "pickle, dill"
