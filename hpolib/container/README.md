@@ -1,8 +1,8 @@
-This folder contains a prototype for running HPOlib2 becnhmaks as containers.
+This folder contains a prototype for running HPOlib2 benchmarks as containers.
 At the moment it uses Singularity. So you have to install Singularity first:
 https://singularity.lbl.gov/install-linux
 
-The mechanism used is known as RPC and is implemented by Pyro4. For runnung the
+The mechanism used is known as RPC and is implemented by Pyro4. For running the
 benchmark inside the container there exist a client class simulating the
 original API.
 
