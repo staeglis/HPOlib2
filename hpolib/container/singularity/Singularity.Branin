@@ -11,4 +11,4 @@ From: ubuntu
     apt install pyro4 python3-pyro4 -y
 
 %runscript
-    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/Branin/server.py
+    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/branin/server.py
