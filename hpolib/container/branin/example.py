@@ -2,7 +2,7 @@ import time
 import numpy as np
 
 # from hpolib.benchmarks.synthetic_functions import Branin
-# from hpolib.container.Branin.client import Branin
+# from hpolib.container.branin.client import Branin
 from client import Branin
 
 import ConfigSpace
