@@ -21,8 +21,6 @@ class Branin():
         os.system("singularity run Branin.img &")
         time.sleep(10)
         
-        #Pyro4.config.SERIALIZER="cloudpickle"
-        #Pyro4.config.SERIALIZERS_ACCEPTED = "pickle, dill"
         Pyro4.config.REQUIRE_EXPOSE = False
         u = "PYRO:example.unixsock@./u:example_unix.sock"
         self.uri = u.strip()
