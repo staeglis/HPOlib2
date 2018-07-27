@@ -41,7 +41,6 @@ class BraninServer():
     def shutdown(self):
         print('shutting down...')
         self.daemon.shutdown()
-        os.remove("example_unix.sock")
 
 if __name__ == "__main__":
     Pyro4.config.REQUIRE_EXPOSE = False
