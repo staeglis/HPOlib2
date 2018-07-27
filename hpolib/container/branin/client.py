@@ -44,3 +44,4 @@ class Branin():
     
     def __del__(self):
         self.b.shutdown()
+        os.remove("example_unix.sock")
