@@ -43,11 +43,7 @@ class BraninServer():
         self.daemon.shutdown()
         os.remove("example_unix.sock")
 
-#Pyro4.config.SERIALIZER='dill'
-#Pyro4.config.SERIALIZERS_ACCEPTED = "cloudpickle, dill"
-
-Pyro4.config.REQUIRE_EXPOSE = False
-print(Pyro4.config.REQUIRE_EXPOSE)
-
-
-bp = BraninServer()
+if __name__ == "__main__":
+    Pyro4.config.REQUIRE_EXPOSE = False
+    print(Pyro4.config.REQUIRE_EXPOSE)
+    bp = BraninServer()
