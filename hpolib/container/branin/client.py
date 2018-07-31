@@ -16,9 +16,9 @@ from ConfigSpace.read_and_write import json as csjson
 class Branin():
     def __init__(self):
         #subprocess.call(['python3', 'server.py', '&'])
-        if not os.path.exists("Branin.img"):
-            os.system("singularity pull --name Branin.img shub://staeglis/HPOlib2:branin")
-        os.system("singularity run Branin.img &")
+        if not os.path.exists("Branin.simg"):
+            os.system("singularity pull --name Branin.simg shub://staeglis/HPOlib2:branin")
+        os.system("singularity run Branin.simg &")
         time.sleep(10)
         
         Pyro4.config.REQUIRE_EXPOSE = False
