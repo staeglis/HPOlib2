@@ -40,7 +40,7 @@ class Branin():
     
     def get_meta_information(self):
         dictionary = self.b.get_meta_information()
-        return json.loads(eval(dictionary['text/plain']))
+        return json.loads(dictionary)
     
     def __del__(self):
         self.b.shutdown()
