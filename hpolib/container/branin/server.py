@@ -3,6 +3,7 @@ import Pyro4
 from hpolib.benchmarks.synthetic_functions import Branin
 import random
 import string
+import sys
 from ConfigSpace.read_and_write import json as csjson
 import json
 import ConfigSpace as CS
@@ -45,4 +46,11 @@ class BraninServer():
 if __name__ == "__main__":
     Pyro4.config.REQUIRE_EXPOSE = False
     print(Pyro4.config.REQUIRE_EXPOSE)
+
+    if len(sys.argv) ! =2:
+        print("Usage: server.py <socketId>")
+        sys.exit()
+    socketId = sys.argv[1]
+    print(socketId)
+
     bp = BraninServer()
