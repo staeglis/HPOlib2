@@ -53,6 +53,5 @@ if __name__ == "__main__":
         print("Usage: server.py <socketId>")
         sys.exit()
     socketId = sys.argv[1]
-    print(socketId)
 
     bp = BraninServer(socketId)

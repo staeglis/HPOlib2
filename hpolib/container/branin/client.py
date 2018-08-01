@@ -16,8 +16,7 @@ class Branin():
         #subprocess.call(['python3', 'server.py', '&'])
         self.socketId = self.id_generator()
 
-        if not os.path.exists("Branin.simg"):
-            os.system("singularity pull --name Branin.simg shub://staeglis/HPOlib2:branin")
+        os.system("singularity pull --name Branin.simg shub://staeglis/HPOlib2:branin")
         os.system("singularity run Branin.simg %s&" % self.socketId)
         time.sleep(10)
         
@@ -25,7 +24,6 @@ class Branin():
         
         u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.socketId + "_unix.sock"
         self.uri = u.strip()
-        print(self.uri)
         self.b = Pyro4.Proxy(self.uri)
 
     def objective_function(self, x, **kwargs):
