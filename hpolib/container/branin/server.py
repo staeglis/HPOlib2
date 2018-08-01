@@ -11,12 +11,14 @@ import ConfigSpace as CS
 @Pyro4.expose
 @Pyro4.behavior(instance_mode="single")
 class BraninServer():
-    def __init__(self):
-        if os.path.exists("example_unix.sock"):
-            os.remove("example_unix.sock")
-        self.daemon = Pyro4.Daemon(unixsocket="example_unix.sock")
+    def __init__(self, socketId):
+        self.socketId = socketId
+        socketPath = self.socketId + "_unix.sock"
+        if os.path.exists(socketPath):
+            os.remove(socketPath)
+        self.daemon = Pyro4.Daemon(unixsocket=socketPath)
         self.b = Branin()
-        uri = self.daemon.register(self, "example.unixsock")
+        uri = self.daemon.register(self, self.socketId + ".unixsock")
         print("Ready. Object uri =", uri)      # print the uri so we can use it in the client later
         self.daemon.requestLoop()              # start the event loop of the server to wait for calls
 
@@ -53,4 +55,4 @@ if __name__ == "__main__":
     socketId = sys.argv[1]
     print(socketId)
 
-    bp = BraninServer()
+    bp = BraninServer(socketId)

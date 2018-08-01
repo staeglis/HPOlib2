@@ -15,14 +15,17 @@ class Branin():
     def __init__(self):
         #subprocess.call(['python3', 'server.py', '&'])
         self.socketId = self.id_generator()
+
         if not os.path.exists("Branin.simg"):
             os.system("singularity pull --name Branin.simg shub://staeglis/HPOlib2:branin")
         os.system("singularity run Branin.simg %s&" % self.socketId)
         time.sleep(10)
         
         Pyro4.config.REQUIRE_EXPOSE = False
-        u = "PYRO:example.unixsock@./u:example_unix.sock"
+        
+        u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.socketId + "_unix.sock"
         self.uri = u.strip()
+        print(self.uri)
         self.b = Pyro4.Proxy(self.uri)
 
     def objective_function(self, x, **kwargs):
@@ -46,4 +49,4 @@ class Branin():
     
     def __del__(self):
         self.b.shutdown()
-        os.remove("example_unix.sock")
+        os.remove(self.socketId + "_unix.sock")
