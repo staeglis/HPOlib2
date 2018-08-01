@@ -22,7 +22,7 @@ class BraninServer():
         self.b = Branin()
         uri = self.daemon.register(self, self.socketId + ".unixsock")
         print("Ready. Object uri =", uri)      # print the uri so we can use it in the client later
-        self.daemon.requestLoop(condition=lambda: self.pyroRunning)              # start the event loop of the server to wait for calls
+        self.daemon.requestLoop(loopCondition=lambda: self.pyroRunning)              # start the event loop of the server to wait for calls
 
     def get_configuration_space(self):
         result = self.b.get_configuration_space()
