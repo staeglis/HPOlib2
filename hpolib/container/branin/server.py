@@ -12,6 +12,8 @@ import ConfigSpace as CS
 @Pyro4.behavior(instance_mode="single")
 class BraninServer():
     def __init__(self, socketId):
+        self.pyroRunning = True
+
         self.socketId = socketId
         socketPath = self.socketId + "_unix.sock"
         if os.path.exists(socketPath):
@@ -20,7 +22,7 @@ class BraninServer():
         self.b = Branin()
         uri = self.daemon.register(self, self.socketId + ".unixsock")
         print("Ready. Object uri =", uri)      # print the uri so we can use it in the client later
-        self.daemon.requestLoop()              # start the event loop of the server to wait for calls
+        self.daemon.requestLoop(condition=lambda: self.pyroRunning)              # start the event loop of the server to wait for calls
 
     def get_configuration_space(self):
         result = self.b.get_configuration_space()
@@ -43,6 +45,7 @@ class BraninServer():
     @Pyro4.oneway   # in case call returns much later than daemon.shutdown
     def shutdown(self):
         print('shutting down...')
+        self.pyroRunning = False
         self.daemon.shutdown()
 
 if __name__ == "__main__":
