@@ -21,6 +21,7 @@ class Branin():
         time.sleep(10)
         
         Pyro4.config.REQUIRE_EXPOSE = False
+        Pyro4.config.COMMTIMEOUT=0.5
         
         u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.socketId + "_unix.sock"
         self.uri = u.strip()
