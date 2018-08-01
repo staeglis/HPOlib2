@@ -47,7 +47,7 @@ if __name__ == "__main__":
     Pyro4.config.REQUIRE_EXPOSE = False
     print(Pyro4.config.REQUIRE_EXPOSE)
 
-    if len(sys.argv) ! =2:
+    if len(sys.argv) != 2:
         print("Usage: server.py <socketId>")
         sys.exit()
     socketId = sys.argv[1]
