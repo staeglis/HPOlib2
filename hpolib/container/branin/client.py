@@ -1,13 +1,11 @@
 import Pyro4
-import ConfigSpace
-
 # from hpolib.abstract_benchmark import AbstractBenchmark
 
 import json
-import re
 import os
-#import subprocess
+import string
 import time
+import random
 
 import ConfigSpace as CS
 
@@ -16,9 +14,10 @@ from ConfigSpace.read_and_write import json as csjson
 class Branin():
     def __init__(self):
         #subprocess.call(['python3', 'server.py', '&'])
+        self.socketId = self.id_generator()
         if not os.path.exists("Branin.simg"):
             os.system("singularity pull --name Branin.simg shub://staeglis/HPOlib2:branin")
-        os.system("singularity run Branin.simg &")
+        os.system("singularity run Branin.simg %s&" % self.socketId)
         time.sleep(10)
         
         Pyro4.config.REQUIRE_EXPOSE = False
@@ -41,6 +40,9 @@ class Branin():
     def get_meta_information(self):
         dictionary = self.b.get_meta_information()
         return json.loads(dictionary)
+    
+    def id_generator(self, size=6, chars=string.ascii_uppercase + string.digits):
+         return ''.join(random.choice(chars) for _ in range(size))
     
     def __del__(self):
         self.b.shutdown()
