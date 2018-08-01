@@ -51,6 +51,7 @@ class BraninServer():
 if __name__ == "__main__":
     Pyro4.config.REQUIRE_EXPOSE = False
     print(Pyro4.config.REQUIRE_EXPOSE)
+    Pyro4.config.COMMTIMEOUT=0.5
 
     if len(sys.argv) != 2:
         print("Usage: server.py <socketId>")
