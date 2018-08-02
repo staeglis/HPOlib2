@@ -31,11 +31,11 @@ class BraninServer():
     def objective_function(self, cString, csString, kwargs):
         cDict = json.loads(cString)
         cs = csjson.read(csString)
-        # configuration = CS.Configuration(cs, cDict, json.loads(kwargs))
         configuration = CS.Configuration(cs, cDict)
-        print(kwargs)
-        print(type(kwargs))
-        result = self.b.objective_function(configuration)
+        if kwargs == "{}":
+            result = self.b.objective_function(configuration)
+        else:
+            result = self.b.objective_function(configuration, json.loads(kwargs))
         return json.dumps(result, indent=None)
 
     def get_meta_information(self):
