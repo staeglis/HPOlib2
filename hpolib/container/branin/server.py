@@ -28,7 +28,7 @@ class BraninServer():
         result = self.b.get_configuration_space()
         return csjson.write(result, indent=None)
 
-    def objective_function(self, cString, csString, **kwargs):
+    def objective_function(self, cString, csString, kwargs):
         cDict = json.loads(cString)
         cs = csjson.read(csString)
         # configuration = CS.Configuration(cs, cDict, json.loads(kwargs))

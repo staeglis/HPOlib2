@@ -1,5 +1,5 @@
 import Pyro4
-# from hpolib.abstract_benchmark import AbstractBenchmark
+# from hpolib.container.abstract_benchmark.client import AbstractClient
 
 import json
 import os
@@ -13,7 +13,6 @@ from ConfigSpace.read_and_write import json as csjson
 
 class Branin():
     def __init__(self):
-        #subprocess.call(['python3', 'server.py', '&'])
         self.socketId = self.id_generator()
 
         os.system("singularity pull --name Branin.simg shub://staeglis/HPOlib2:branin")
@@ -31,8 +30,7 @@ class Branin():
         # Create the arguments as Str
         cString = json.dumps(x.get_dictionary(), indent=None)
         csString = csjson.write(x.configuration_space, indent=None)
-        # arguments += ", '" + json.dumps(kwargs) + "'"
-        jsonStr = self.b.objective_function(cString, csString)
+        jsonStr = self.b.objective_function(cString, csString, json.dumps(kwargs))
         return json.loads(jsonStr)
 
     def get_configuration_space(self):
@@ -40,8 +38,8 @@ class Branin():
         return csjson.read(jsonStr)
     
     def get_meta_information(self):
-        dictionary = self.b.get_meta_information()
-        return json.loads(dictionary)
+        jsonStr = self.b.get_meta_information()
+        return json.loads(jsonStr)
     
     def id_generator(self, size=6, chars=string.ascii_uppercase + string.digits):
          return ''.join(random.choice(chars) for _ in range(size))
