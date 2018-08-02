@@ -33,6 +33,8 @@ class BraninServer():
         cs = csjson.read(csString)
         # configuration = CS.Configuration(cs, cDict, json.loads(kwargs))
         configuration = CS.Configuration(cs, cDict)
+        print(kwargs)
+        print(type(kwargs))
         result = self.b.objective_function(configuration)
         return json.dumps(result, indent=None)
 
