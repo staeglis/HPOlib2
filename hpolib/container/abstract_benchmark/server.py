@@ -1,6 +1,5 @@
 import os
 import Pyro4
-from hpolib.benchmarks.synthetic_functions import Branin
 import random
 import string
 import sys
@@ -19,8 +18,7 @@ class BenchmarkServer():
         if os.path.exists(socketPath):
             os.remove(socketPath)
         self.daemon = Pyro4.Daemon(unixsocket=socketPath)
-        
-        exec("from hpolib.benchmarks.synthetic_functions import %s as Benchmark" % benchmark)
+
         self.b = Benchmark()
         uri = self.daemon.register(self, self.socketId + ".unixsock")
         print("Ready. Object uri =", uri)      # print the uri so we can use it in the client later
@@ -54,7 +52,6 @@ class BenchmarkServer():
 
 if __name__ == "__main__":
     Pyro4.config.REQUIRE_EXPOSE = False
-    print(Pyro4.config.REQUIRE_EXPOSE)
     Pyro4.config.COMMTIMEOUT=0.5
 
     if len(sys.argv) != 3:
@@ -63,4 +60,5 @@ if __name__ == "__main__":
     benchmark = sys.argv[1]
     socketId = sys.argv[2]
 
+    exec("from hpolib.benchmarks.synthetic_functions import %s as Benchmark" % benchmark)
     bp = BenchmarkServer(benchmark, socketId)
