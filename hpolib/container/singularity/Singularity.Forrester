@@ -13,4 +13,4 @@ MAINTAINER Stefan Staeglich
     apt install pyro4 python3-pyro4 -y
 
 %runscript
-    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/forrester/server.py $@
+    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/synthetic_functions/forrester.py $@

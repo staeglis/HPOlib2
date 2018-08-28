@@ -28,8 +28,6 @@ class Forrester():
         self.uri = u.strip()
         self.b = Pyro4.Proxy(self.uri)
 
-    @AbstractBenchmark._check_configuration
-    @AbstractBenchmark._configuration_as_array
     def objective_function(self, x, fidelity=1, **kwargs):
         # Create the arguments as Str
         xString = json.dumps(x, indent=None)
