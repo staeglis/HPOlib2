@@ -19,7 +19,7 @@ class ForresterServer():
         if os.path.exists(socketPath):
             os.remove(socketPath)
         self.daemon = Pyro4.Daemon(unixsocket=socketPath)
-        self.b = Branin()
+        self.b = Forrester()
         uri = self.daemon.register(self, self.socketId + ".unixsock")
         print("Ready. Object uri =", uri)      # print the uri so we can use it in the client later
         self.daemon.requestLoop(loopCondition=lambda: self.pyroRunning)              # start the event loop of the server to wait for calls
