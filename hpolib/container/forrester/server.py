@@ -28,7 +28,7 @@ class ForresterServer():
         result = self.b.get_configuration_space()
         return csjson.write(result, indent=None)
 
-    def objective_function(self, xString, fidelity, kwargs):
+    def objective_function(self, xString, fidelity, kwargs="{}"):
         x = json.loads(xString)
         if kwargs == "{}":
             result = self.b.objective_function(x)
