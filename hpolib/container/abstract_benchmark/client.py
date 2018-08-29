@@ -17,7 +17,7 @@ class BenchmarkClient():
     def __init__(self):
         self.socketId = self.id_generator()
 
-        os.system("singularity pull --name Branin.simg shub://staeglis/HPOlib2:branin")
+        os.system("singularity pull --name %s.simg shub://staeglis/HPOlib2:branin" % (benchmark))
         os.system("singularity run %s.simg %s %s&" % (benchmark, benchmark, self.socketId))
         time.sleep(10)
         
