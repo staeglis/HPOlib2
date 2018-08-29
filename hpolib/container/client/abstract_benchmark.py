@@ -1,5 +1,4 @@
 import Pyro4
-# from hpolib.container.abstract_benchmark.client import AbstractClient
 
 import json
 import os
@@ -11,14 +10,12 @@ import ConfigSpace as CS
 
 from ConfigSpace.read_and_write import json as csjson
 
-from hpolib.abstract_benchmark import AbstractBenchmark
-
-class Forrester():
-    def __init__(self):
+class AbstractBenchmarkClient():
+    def setup(self):
         self.socketId = self.id_generator()
 
-        os.system("singularity pull --name Forrester.simg shub://staeglis/HPOlib2:forrester")
-        os.system("singularity run Forrester.simg %s&" % self.socketId)
+        os.system("singularity pull --name %s.simg shub://staeglis/HPOlib2:%s" % (self.bName, self.bName.lower()))
+        os.system("singularity run %s.simg %s&" % (self.bName, self.socketId))
         time.sleep(10)
         
         Pyro4.config.REQUIRE_EXPOSE = False
@@ -55,3 +52,4 @@ class Forrester():
     def __del__(self):
         self.b.shutdown()
         os.remove(self.socketId + "_unix.sock")
+ 

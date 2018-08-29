@@ -1,7 +1,7 @@
 import numpy as np
 
 import hpolib.benchmarks.synthetic_functions as hpobench
-from client import Forrester
+from hpolib.container.client.synthetic_functions.forrester import Forrester
 
 import matplotlib.pyplot as plt
 from matplotlib import cm
