@@ -31,10 +31,10 @@ class ForresterServer():
     def objective_function(self, xString, fidelity, kwargs="{}"):
         x = json.loads(xString)
         if kwargs == "{}":
-            result = self.b.objective_function(x)
+            result = self.b.objective_function(xString)
         else:
-            result = self.b.objective_function(x, json.loads(kwargs))
-        return json.dumps(result, indent=None)
+            result = self.b.objective_function(xString, json.loads(kwargs))
+        return result
 
     def get_meta_information(self):
         return json.dumps(self.b.get_meta_information(), indent=None)
