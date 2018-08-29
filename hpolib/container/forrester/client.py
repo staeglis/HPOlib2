@@ -27,12 +27,19 @@ class Forrester():
         u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.socketId + "_unix.sock"
         self.uri = u.strip()
         self.b = Pyro4.Proxy(self.uri)
-
-    def objective_function(self, x, fidelity=1, **kwargs):
+        
+    def objective_function(self, x, **kwargs):
         # Create the arguments as Str
-        xString = json.dumps(x, indent=None)
-        jsonStr = self.b.objective_function(xString, json.dumps(kwargs))
-        return json.loads(jsonStr)
+        if (type(x) is list):
+            xString = json.dumps(x, indent=None)
+            jsonStr = self.b.objective_function_list(xString, json.dumps(kwargs))
+            return json.loads(jsonStr)
+        else:
+            # Create the arguments as Str
+            cString = json.dumps(x.get_dictionary(), indent=None)
+            csString = csjson.write(x.configuration_space, indent=None)
+            jsonStr = self.b.objective_function(cString, csString, json.dumps(kwargs))
+            return json.loads(jsonStr)
 
     def get_configuration_space(self):
         jsonStr = self.b.get_configuration_space()
