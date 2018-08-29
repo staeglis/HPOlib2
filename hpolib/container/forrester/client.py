@@ -31,8 +31,8 @@ class Forrester():
     def objective_function(self, x, fidelity=1, **kwargs):
         # Create the arguments as Str
         xString = json.dumps(x, indent=None)
-        jsonStr = self.b.objective_function(x, json.dumps(kwargs))
-        return jsonStr
+        jsonStr = self.b.objective_function(xString, json.dumps(kwargs))
+        return json.loads(jsonStr)
 
     def get_configuration_space(self):
         jsonStr = self.b.get_configuration_space()
