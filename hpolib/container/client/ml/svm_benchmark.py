@@ -1,6 +1,6 @@
 from hpolib.container.client.abstract_benchmark import AbstractBenchmarkClient
 
-class Branin(AbstractBenchmarkClient):
+class SvmOnVehicle(AbstractBenchmarkClient):
     def __init__(self):
-        self.bName = "Branin"
-        self.setup()
+        self.bName = "SvmOnVehicle"
+        self.setup() 
