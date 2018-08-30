@@ -68,5 +68,5 @@ if __name__ == "__main__":
     benchmark = sys.argv[1]
     socketId = sys.argv[2]
 
-    exec("from hpolib.benchmarks.synthetic_functions import %s as Benchmark" % benchmark)
+    exec("from hpolib.benchmarks.ml import %s as Benchmark" % benchmark)
     bp = BenchmarkServer(benchmark, socketId)
