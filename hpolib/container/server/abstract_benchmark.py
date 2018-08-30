@@ -55,12 +55,12 @@ class BenchmarkServer():
     @Pyro4.oneway   # in case call returns much later than daemon.shutdown
     def shutdown(self):
         print('shutting down...')
+        Pyro4.config.COMMTIMEOUT = 0.5
         self.pyroRunning = False
         self.daemon.shutdown()
 
 if __name__ == "__main__":
     Pyro4.config.REQUIRE_EXPOSE = False
-    Pyro4.config.COMMTIMEOUT=0.5
 
     if len(sys.argv) != 4:
         print("Usage: server.py <importBase> <benchmark> <socketId>")
