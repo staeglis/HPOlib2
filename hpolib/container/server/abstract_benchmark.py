@@ -62,11 +62,12 @@ if __name__ == "__main__":
     Pyro4.config.REQUIRE_EXPOSE = False
     Pyro4.config.COMMTIMEOUT=0.5
 
-    if len(sys.argv) != 3:
-        print("Usage: server.py <benchmark> <socketId>")
+    if len(sys.argv) != 4:
+        print("Usage: server.py <importBase> <benchmark> <socketId>")
         sys.exit()
-    benchmark = sys.argv[1]
-    socketId = sys.argv[2]
+    importBase = sys.argv[1]
+    benchmark = sys.argv[2]
+    socketId = sys.argv[3]
 
-    exec("from hpolib.benchmarks.ml import %s as Benchmark" % benchmark)
+    exec("from hpolib.benchmarks.%s import %s as Benchmark" % (importBase, benchmark))
     bp = BenchmarkServer(benchmark, socketId)

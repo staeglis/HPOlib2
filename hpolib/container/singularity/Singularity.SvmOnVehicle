@@ -13,4 +13,4 @@ MAINTAINER Stefan Staeglich
     apt install pyro4 python3-pyro4 -y
 
 %runscript
-    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py SvmOnVehicle $@
+    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.svm_benchmark SvmOnVehicle $@
