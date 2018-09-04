@@ -20,12 +20,18 @@ class AbstractBenchmarkClient():
 
         Pyro4.config.REQUIRE_EXPOSE = False
 
-        print("Start wait")
-        time.sleep(40)
-        print("Wait finished")
         u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.socketId + "_unix.sock"
         self.uri = u.strip()
         self.b = Pyro4.Proxy(self.uri)
+        print("Check connection to container")
+        while True:
+            try:
+                self.b.get_meta_information()
+            except Pyro4.errors.CommunicationError:
+                print("Still waiting")
+                time.sleep(5)
+                continue
+            break
         print("Connected to container")
 
     def objective_function(self, x, **kwargs):
