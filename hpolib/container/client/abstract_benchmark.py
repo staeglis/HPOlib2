@@ -15,16 +15,19 @@ class AbstractBenchmarkClient():
         self.socketId = self.id_generator()
 
         os.system("singularity pull --name %s.simg shub://staeglis/HPOlib2:%s" % (self.bName, self.bName.lower()))
-        os.system("singularity run %s.simg %s&" % (self.bName, self.socketId))
-        time.sleep(10)
-        
+        os.system("singularity instance.start %s.simg %s" % (self.bName, self.socketId))
+        os.system("singularity run instance://%s %s&" % (self.socketId, self.socketId))
+
         Pyro4.config.REQUIRE_EXPOSE = False
-        Pyro4.config.COMMTIMEOUT=1
-        
+
+        print("Start wait")
+        time.sleep(40)
+        print("Wait finished")
         u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.socketId + "_unix.sock"
         self.uri = u.strip()
         self.b = Pyro4.Proxy(self.uri)
-        
+        print("Connected to container")
+
     def objective_function(self, x, **kwargs):
         # Create the arguments as Str
         if (type(x) is list):
@@ -41,15 +44,17 @@ class AbstractBenchmarkClient():
     def get_configuration_space(self):
         jsonStr = self.b.get_configuration_space()
         return csjson.read(jsonStr)
-    
+
     def get_meta_information(self):
         jsonStr = self.b.get_meta_information()
         return json.loads(jsonStr)
-    
+
     def id_generator(self, size=6, chars=string.ascii_uppercase + string.digits):
          return ''.join(random.choice(chars) for _ in range(size))
-    
+
     def __del__(self):
+        Pyro4.config.COMMTIMEOUT = 1
         self.b.shutdown()
+        os.system("singularity instance.stop %s" % (self.socketId))
         os.remove(self.socketId + "_unix.sock")
  
