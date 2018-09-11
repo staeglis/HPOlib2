@@ -8,8 +8,9 @@ MAINTAINER Stefan Staeglich
     apt update -y
     apt install git -y
     apt install python3-pip python3-numpy python-configparser cython3 -y
-    pip3 install openml
     pip3 install git+https://github.com/automl/ConfigSpace.git@master
+    apt install python3-scipy python3-sklearn -y
+    pip3 install openml
     pip3 install git+https://github.com/staeglis/HPOlib2@container
     apt install pyro4 python3-pyro4 -y
 
