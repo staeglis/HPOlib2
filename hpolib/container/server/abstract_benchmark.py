@@ -28,22 +28,22 @@ class BenchmarkServer():
         result = self.b.get_configuration_space()
         return csjson.write(result, indent=None)
 
-    def objective_function_list(self, xString, kwargs="{}"):
+    def objective_function_list(self, xString, kwargsStr="{}"):
         x = json.loads(xString)
-        if kwargs == "{}":
+        if kwargsStr == "{}":
             result = self.b.objective_function(x)
         else:
-            result = self.b.objective_function(x, json.loads(kwargs))
+            result = self.b.objective_function(x, json.loads(kwargsStr))
         return json.dumps(result, indent=None)
     
-    def objective_function(self, cString, csString, kwargs="{}"):
+    def objective_function(self, cString, csString, kwargsStr="{}"):
         cDict = json.loads(cString)
         cs = csjson.read(csString)
         configuration = CS.Configuration(cs, cDict)
-        if kwargs == "{}":
+        if kwargsStr == "{}":
             result = self.b.objective_function(configuration)
         else:
-            result = self.b.objective_function(configuration, json.loads(kwargs))
+            result = self.b.objective_function(configuration, json.loads(kwargsStr))
         return json.dumps(result, indent=None)
 
     def get_meta_information(self):
