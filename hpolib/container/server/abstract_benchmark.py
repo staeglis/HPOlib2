@@ -33,7 +33,7 @@ class BenchmarkServer():
         if kwargsStr == "{}":
             result = self.b.objective_function(x)
         else:
-            result = self.b.objective_function(x, json.loads(kwargsStr))
+            result = self.b.objective_function(x, **json.loads(kwargsStr))
         return json.dumps(result, indent=None)
     
     def objective_function(self, cString, csString, kwargsStr):
@@ -43,7 +43,7 @@ class BenchmarkServer():
         if kwargsStr == "{}":
             result = self.b.objective_function(configuration)
         else:
-            result = self.b.objective_function(configuration, json.loads(kwargsStr))
+            result = self.b.objective_function(configuration, **json.loads(kwargsStr))
         return json.dumps(result, indent=None)
 
     def get_meta_information(self):
