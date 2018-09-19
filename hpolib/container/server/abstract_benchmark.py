@@ -28,7 +28,7 @@ class BenchmarkServer():
         result = self.b.get_configuration_space()
         return csjson.write(result, indent=None)
 
-    def objective_function_list(self, xString, kwargsStr="{}"):
+    def objective_function_list(self, xString, kwargsStr):
         x = json.loads(xString)
         if kwargsStr == "{}":
             result = self.b.objective_function(x)
@@ -36,7 +36,7 @@ class BenchmarkServer():
             result = self.b.objective_function(x, json.loads(kwargsStr))
         return json.dumps(result, indent=None)
     
-    def objective_function(self, cString, csString, kwargsStr="{}"):
+    def objective_function(self, cString, csString, kwargsStr):
         cDict = json.loads(cString)
         cs = csjson.read(csString)
         configuration = CS.Configuration(cs, cDict)
