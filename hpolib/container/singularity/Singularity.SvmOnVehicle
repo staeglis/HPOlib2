@@ -13,6 +13,7 @@ MAINTAINER Stefan Staeglich
     pip3 install git+https://github.com/staeglis/HPOlib2@container
     apt install pyro4 python3-pyro4 -y
     pip3 install openml
+    mkdir /var/lib/hpolib/
 
 %runscript
     python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.svm_benchmark SvmOnVehicle $@

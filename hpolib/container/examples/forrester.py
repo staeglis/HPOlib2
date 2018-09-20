@@ -20,7 +20,7 @@ cs = b.get_configuration_space()
 for i in range(1000):
     configuration = cs.sample_configuration()
     # s = time.time()
-    rval = b.objective_function(configuration)
+    rval = b.objective_function(configuration, fidelity=2)
     # print("Done, took %.2f s" % ((time.time() - s)))
     loss = rval['function_value']
     values.append(loss)
