@@ -7,14 +7,17 @@ from ConfigSpace.read_and_write import json as csjson
 import json
 import ConfigSpace as CS
 
+from hpolib.config import HPOlibConfig
+
 @Pyro4.expose
 @Pyro4.behavior(instance_mode="single")
 class BenchmarkServer():
     def __init__(self, benchmark, socketId):
         self.pyroRunning = True
+        config = HPOlibConfig()
 
         self.socketId = socketId
-        socketPath = self.socketId + "_unix.sock"
+        socketPath = config.socket_dir + self.socketId + "_unix.sock"
         if os.path.exists(socketPath):
             os.remove(socketPath)
         self.daemon = Pyro4.Daemon(unixsocket=socketPath)

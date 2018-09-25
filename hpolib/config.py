@@ -22,9 +22,11 @@ class HPOlibConfig:
 
         self.config = None
         self.data_dir = None
+        self.socket_dir = None
 
         self.defaults = {'verbosity': 0,
-                         'data_dir': os.path.expanduser("~/.hpolib/")}
+                         'data_dir': os.path.expanduser("~/.hpolib/"),
+                         'socket_dir': os.path.expanduser("~/.cache/hpolib/")}
 
         self._setup(self.config_file)
 
@@ -55,6 +57,7 @@ class HPOlibConfig:
 
         # Check whether data_dir exists, if not create
         self.__check_data_dir()
+        self.__check_socket_dir()
 
     @staticmethod
     def __make_abs_path(path):
@@ -91,6 +94,7 @@ class HPOlibConfig:
 
         # Store configuration
         self.data_dir = self.config.get('FAKE_SECTION', 'data_dir')
+        self.socket_dir = self.config.get('FAKE_SECTION', 'socket_dir')
 
     def __check_data_dir(self):
         """ Check whether data dir exists and if not create it"""
@@ -101,6 +105,17 @@ class HPOlibConfig:
         except (IOError, OSError):
             self.logger.debug("Could not create data directory here: %s",
                               self.data_dir)
+            raise
+    
+    def __check_socket_dir(self):
+        """ Check whether data dir exists and if not create it"""
+        try:
+            os.makedirs(self.socket_dir)
+        except FileExistsError:
+            pass
+        except (IOError, OSError):
+            self.logger.debug("Could not create data directory here: %s",
+                              self.socket_dir)
             raise
 
 

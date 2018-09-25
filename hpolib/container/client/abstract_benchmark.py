@@ -10,9 +10,13 @@ import ConfigSpace as CS
 
 from ConfigSpace.read_and_write import json as csjson
 
+from hpolib.config import HPOlibConfig
+
+
 class AbstractBenchmarkClient():
     def setup(self):
         self.socketId = self.id_generator()
+        config = HPOlibConfig()
 
         os.system("singularity pull --name %s.simg shub://staeglis/HPOlib2:%s" % (self.bName, self.bName.lower()))
         os.system("singularity instance.start %s.simg %s" % (self.bName, self.socketId))
@@ -20,7 +24,7 @@ class AbstractBenchmarkClient():
 
         Pyro4.config.REQUIRE_EXPOSE = False
 
-        u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.socketId + "_unix.sock"
+        u = "PYRO:" + self.socketId + ".unixsock@./u:" + config.socket_dir + self.socketId + "_unix.sock"
         self.uri = u.strip()
         self.b = Pyro4.Proxy(self.uri)
         print("Check connection to container")
