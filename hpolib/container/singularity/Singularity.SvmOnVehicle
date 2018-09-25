@@ -16,6 +16,8 @@ MAINTAINER Stefan Staeglich
     mkdir /var/lib/hpolib/
     
     python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/util/download_data.py ml.svm_benchmark SvmOnVehicle
+    ls -l /var/lib/hpolib/
+    cat $HOME/.hpolibrc
 
 %runscript
     python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.svm_benchmark SvmOnVehicle $@
