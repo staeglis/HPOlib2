@@ -25,7 +25,7 @@ class HPOlibConfig:
         self.socket_dir = None
 
         self.defaults = {'verbosity': 0,
-                         'data_dir': os.path.expanduser("~/.hpolib/"),
+                         'data_dir': os.path.expanduser("/var/lib/hpolib/"),
                          'socket_dir': os.path.expanduser("~/.cache/hpolib/")}
 
         self._setup(self.config_file)
