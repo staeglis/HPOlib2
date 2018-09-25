@@ -16,7 +16,7 @@ from hpolib.config import HPOlibConfig
 class AbstractBenchmarkClient():
     def setup(self):
         self.socketId = self.id_generator()
-        config = HPOlibConfig()
+        self.config = HPOlibConfig()
 
         os.system("singularity pull --name %s.simg shub://staeglis/HPOlib2:%s" % (self.bName, self.bName.lower()))
         os.system("singularity instance.start %s.simg %s" % (self.bName, self.socketId))
@@ -24,7 +24,7 @@ class AbstractBenchmarkClient():
 
         Pyro4.config.REQUIRE_EXPOSE = False
 
-        u = "PYRO:" + self.socketId + ".unixsock@./u:" + config.socket_dir + self.socketId + "_unix.sock"
+        u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.config.socket_dir + self.socketId + "_unix.sock"
         self.uri = u.strip()
         self.b = Pyro4.Proxy(self.uri)
         print("Check connection to container")
@@ -66,5 +66,5 @@ class AbstractBenchmarkClient():
         Pyro4.config.COMMTIMEOUT = 1
         self.b.shutdown()
         os.system("singularity instance.stop %s" % (self.socketId))
-        os.remove(self.socketId + "_unix.sock")
+        os.remove(self.config.socket_dir + self.socketId + "_unix.sock")
  
