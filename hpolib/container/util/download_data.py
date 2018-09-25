@@ -1,6 +1,4 @@
 if __name__ == "__main__":
-    Pyro4.config.REQUIRE_EXPOSE = False
-
     if len(sys.argv) != 3:
         print("Usage: server.py <importBase> <benchmark>")
         sys.exit()
