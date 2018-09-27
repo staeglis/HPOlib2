@@ -19,16 +19,19 @@ class HPOlibConfig:
 
         self.logger = logging.getLogger("HPOlibConfig")
         self.config_file = "~/.hpolibrc"
+        self.global_data_dir = "/var/lib/hpolib/"
 
         self.config = None
         self.data_dir = None
         self.socket_dir = None
         self.image_source = None
+        self.use_global_data = None
 
         self.defaults = {'verbosity': 0,
                          'data_dir': os.path.expanduser("~/.hpolib/"),
                          'socket_dir': os.path.expanduser("~/.cache/hpolib/"),
-                         'image_source': "shub://staeglis/HPOlib2"}
+                         'image_source': "shub://staeglis/HPOlib2",
+                         'use_global_data': True}
 
         self._setup(self.config_file)
 
@@ -98,10 +101,11 @@ class HPOlibConfig:
         self.data_dir = self.__get_config_option('data_dir')
         self.socket_dir = self.__get_config_option('socket_dir')
         self.image_source = self.__get_config_option('image_source')
+        self.use_global_data = self.__get_config_option('use_global_data')
 
         # Use global data dir if exist
-        if os.path.isdir("/var/lib/hpolib/"):
-            self.data_dir = "/var/lib/hpolib/"
+        if os.path.isdir(self.global_data_dir) and self.use_global_data:
+            self.data_dir = self.global_data_dir
 
     def __get_config_option(self, o):
         """ Try to get config option from configuration file. If the option is not configured, use default """

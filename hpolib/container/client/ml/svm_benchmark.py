@@ -9,28 +9,28 @@ class SvmOnMnist(AbstractBenchmarkClient):
 class SvmOnVehicle(AbstractBenchmarkClient):
     def __init__(self):
         self.bName = "SvmOnVehicle"
-        self.setup() 
+        self._setup()
 
 
 class SvmOnCovertype(AbstractBenchmarkClient):
     def __init__(self):
         self.bName = "SvmOnCovertype"
-        self.setup() 
+        self._setup()
 
 
 class SvmOnLetter(AbstractBenchmarkClient):
     def __init__(self):
         self.bName = "SvmOnLetter"
-        self.setup() 
+        self._setup()
 
 
 class SvmOnAdult(AbstractBenchmarkClient):
     def __init__(self):
         self.bName = "SvmOnAdult"
-        self.setup() 
+        self._setup()
 
 
 class SvmOnHiggs(AbstractBenchmarkClient):
     def __init__(self):
         self.bName = "SvmOnHiggs"
-        self.setup() 
+        self._setup()

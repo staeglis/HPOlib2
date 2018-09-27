@@ -13,7 +13,7 @@ from hpolib.config import HPOlibConfig
 
 
 class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
-    def setup(self):
+    def _setup(self):
         self.socketId = self.id_generator()
         self.config = HPOlibConfig()
 
@@ -80,7 +80,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         return(self.objective_function(configuration, **kwargs)['function_value'])
 
     def id_generator(self, size=6, chars=string.ascii_uppercase + string.digits):
-         return ''.join(random.choice(chars) for _ in range(size))
+        return ''.join(random.choice(chars) for _ in range(size))
 
     def __del__(self):
         Pyro4.config.COMMTIMEOUT = 1
