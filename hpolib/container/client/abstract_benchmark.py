@@ -18,7 +18,7 @@ class AbstractBenchmarkClient():
         self.socketId = self.id_generator()
         self.config = HPOlibConfig()
 
-        os.system("singularity pull --name %s.simg shub://staeglis/HPOlib2:%s" % (self.bName, self.bName.lower()))
+        os.system("singularity pull --name %s.simg %s:%s" % (self.bName, self.config.image_source, self.bName.lower()))
         os.system("singularity instance.start %s.simg %s" % (self.bName, self.socketId))
         os.system("singularity run instance://%s %s&" % (self.socketId, self.socketId))
 
@@ -67,4 +67,4 @@ class AbstractBenchmarkClient():
         self.b.shutdown()
         os.system("singularity instance.stop %s" % (self.socketId))
         os.remove(self.config.socket_dir + self.socketId + "_unix.sock")
- 
+

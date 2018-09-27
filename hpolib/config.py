@@ -23,10 +23,12 @@ class HPOlibConfig:
         self.config = None
         self.data_dir = None
         self.socket_dir = None
+        self.image_source = None
 
         self.defaults = {'verbosity': 0,
-                         'data_dir': os.path.expanduser("/var/lib/hpolib/"),
-                         'socket_dir': os.path.expanduser("~/.cache/hpolib/")}
+                         'data_dir': os.path.expanduser("~/.hpolib/"),
+                         'socket_dir': os.path.expanduser("~/.cache/hpolib/"),
+                         'image_source': "shub://staeglis/HPOlib2"}
 
         self._setup(self.config_file)
 
@@ -95,6 +97,11 @@ class HPOlibConfig:
         # Store configuration
         self.data_dir = self.config.get('FAKE_SECTION', 'data_dir')
         self.socket_dir = self.config.get('FAKE_SECTION', 'socket_dir')
+        self.image_source = self.config.get('FAKE_SECTION', 'image_source')
+
+        # Use global data dir if exist
+        if os.path.isdir("/var/lib/hpolib/"):
+            self.data_dir = "/var/lib/hpolib/"
 
     def __check_data_dir(self):
         """ Check whether data dir exists and if not create it"""
