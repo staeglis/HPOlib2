@@ -64,9 +64,6 @@ class BenchmarkServer():
     def get_meta_information(self):
         return json.dumps(self.b.get_meta_information(), indent=None)
 
-    def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
-        return ''.join(random.choice(chars) for _ in range(size))
-
     @Pyro4.oneway   # in case call returns much later than daemon.shutdown
     def shutdown(self):
         print('shutting down...')
