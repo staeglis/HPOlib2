@@ -67,7 +67,7 @@ class BenchmarkServer():
             result = self.b.objective_function_test(configuration, **json.loads(kwargsStr))
         return json.dumps(result, indent=None)
 
-    def test(argsStr, kwargsStr):
+    def test(self, argsStr, kwargsStr):
         result = self.b.test(*json.loads(argsStr, **json.loads(kwargsStr)))
         return json.dumps(result)
 
