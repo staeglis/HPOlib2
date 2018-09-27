@@ -12,8 +12,10 @@ from ConfigSpace.read_and_write import json as csjson
 
 from hpolib.config import HPOlibConfig
 
+import abc
 
-class AbstractBenchmarkClient():
+
+class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
     def setup(self):
         self.socketId = self.id_generator()
         self.config = HPOlibConfig()
@@ -59,6 +61,10 @@ class AbstractBenchmarkClient():
         jsonStr = self.b.get_meta_information()
         return json.loads(jsonStr)
 
+    def __call__ (self, configuration, **kwargs):
+        """ Provides interface to use, e.g., SciPy optimizers """
+        return(self.objective_function(configuration, **kwargs)['function_value'])
+
     def id_generator(self, size=6, chars=string.ascii_uppercase + string.digits):
          return ''.join(random.choice(chars) for _ in range(size))
 
@@ -67,4 +73,3 @@ class AbstractBenchmarkClient():
         self.b.shutdown()
         os.system("singularity instance.stop %s" % (self.socketId))
         os.remove(self.config.socket_dir + self.socketId + "_unix.sock")
-
