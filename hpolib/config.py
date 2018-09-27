@@ -95,13 +95,20 @@ class HPOlibConfig:
         self.config = config
 
         # Store configuration
-        self.data_dir = self.config.get('FAKE_SECTION', 'data_dir')
-        self.socket_dir = self.config.get('FAKE_SECTION', 'socket_dir')
-        self.image_source = self.config.get('FAKE_SECTION', 'image_source')
+        self.data_dir = self.__get_config_option('data_dir')
+        self.socket_dir = self.__get_config_option('socket_dir')
+        self.image_source = self.__get_config_option('image_source')
 
         # Use global data dir if exist
         if os.path.isdir("/var/lib/hpolib/"):
             self.data_dir = "/var/lib/hpolib/"
+
+    def __get_config_option(self, o):
+        """ Try to get config option from configuration file. If the option is not configured, use default """
+        try:
+            return self.config.get('FAKE_SECTION', o)
+        except configparser.NoOptionError:
+            return self.defaults[o]
 
     def __check_data_dir(self):
         """ Check whether data dir exists and if not create it"""
