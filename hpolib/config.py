@@ -58,8 +58,8 @@ class HPOlibConfig:
         self.__parse_config()
 
         # Check whether data_dir exists, if not create
-        self.__check_data_dir()
-        self.__check_socket_dir()
+        self.__check_data_dir(self.data_dir)
+        self.__check_data_dir(self.socket_dir)
 
     @staticmethod
     def __make_abs_path(path):
@@ -110,26 +110,15 @@ class HPOlibConfig:
         except configparser.NoOptionError:
             return self.defaults[o]
 
-    def __check_data_dir(self):
+    def __check_data_dir(self, path):
         """ Check whether data dir exists and if not create it"""
         try:
-            os.makedirs(self.data_dir)
+            os.makedirs(path)
         except FileExistsError:
             pass
         except (IOError, OSError):
             self.logger.debug("Could not create data directory here: %s",
-                              self.data_dir)
-            raise
-    
-    def __check_socket_dir(self):
-        """ Check whether data dir exists and if not create it"""
-        try:
-            os.makedirs(self.socket_dir)
-        except FileExistsError:
-            pass
-        except (IOError, OSError):
-            self.logger.debug("Could not create data directory here: %s",
-                              self.socket_dir)
+                              path)
             raise
 
 
