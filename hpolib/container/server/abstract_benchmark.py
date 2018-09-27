@@ -68,7 +68,7 @@ class BenchmarkServer():
         return json.dumps(result, indent=None)
 
     def test(self, argsStr, kwargsStr):
-        result = self.b.test(*json.loads(argsStr, **json.loads(kwargsStr)))
+        result = self.b.test(*json.loads(argsStr), **json.loads(kwargsStr))
         return json.dumps(result)
 
     def get_meta_information(self):

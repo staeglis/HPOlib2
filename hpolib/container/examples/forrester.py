@@ -15,6 +15,8 @@ start = time.time()
 
 values = []
 
+b.test(n_runs=2)
+
 cs = b.get_configuration_space()
 
 for i in range(1000):
