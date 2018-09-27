@@ -53,6 +53,23 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
             jsonStr = self.b.objective_function(cString, csString, json.dumps(kwargs))
             return json.loads(jsonStr)
 
+    def objective_function_test(self, x, **kwargs):
+        # Create the arguments as Str
+        if (type(x) is list):
+            xString = json.dumps(x, indent=None)
+            jsonStr = self.b.objective_function_test_list(xString, json.dumps(kwargs))
+            return json.loads(jsonStr)
+        else:
+            # Create the arguments as Str
+            cString = json.dumps(x.get_dictionary(), indent=None)
+            csString = csjson.write(x.configuration_space, indent=None)
+            jsonStr = self.b.objective_function_test(cString, csString, json.dumps(kwargs))
+            return json.loads(jsonStr)
+
+    def test(self, *args, **kwargs):
+        result = self.b.test(json.dumps(args), json.dumps(kwargs))
+        return json.loads(result)
+
     def get_configuration_space(self):
         jsonStr = self.b.get_configuration_space()
         return csjson.read(jsonStr)

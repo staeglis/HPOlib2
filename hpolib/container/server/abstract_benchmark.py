@@ -38,7 +38,7 @@ class BenchmarkServer():
         else:
             result = self.b.objective_function(x, **json.loads(kwargsStr))
         return json.dumps(result, indent=None)
-    
+
     def objective_function(self, cString, csString, kwargsStr):
         cDict = json.loads(cString)
         cs = csjson.read(csString)
@@ -49,12 +49,34 @@ class BenchmarkServer():
             result = self.b.objective_function(configuration, **json.loads(kwargsStr))
         return json.dumps(result, indent=None)
 
+    def objective_function_test_list(self, xString, kwargsStr):
+        x = json.loads(xString)
+        if kwargsStr == "{}":
+            result = self.b.objective_function_test(x)
+        else:
+            result = self.b.objective_function_test(x, **json.loads(kwargsStr))
+        return json.dumps(result, indent=None)
+
+    def objective_function_test(self, cString, csString, kwargsStr):
+        cDict = json.loads(cString)
+        cs = csjson.read(csString)
+        configuration = CS.Configuration(cs, cDict)
+        if kwargsStr == "{}":
+            result = self.b.objective_function_test(configuration)
+        else:
+            result = self.b.objective_function_test(configuration, **json.loads(kwargsStr))
+        return json.dumps(result, indent=None)
+
+    def test(argsStr, kwargsStr):
+        result = self.b.test(*json.loads(argsStr, **json.loads(kwargsStr)))
+        return json.dumps(result)
+
     def get_meta_information(self):
         return json.dumps(self.b.get_meta_information(), indent=None)
 
     def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
         return ''.join(random.choice(chars) for _ in range(size))
-    
+
     @Pyro4.oneway   # in case call returns much later than daemon.shutdown
     def shutdown(self):
         print('shutting down...')
