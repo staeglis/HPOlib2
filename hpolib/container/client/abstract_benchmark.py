@@ -1,18 +1,15 @@
-import Pyro4
-
+import abc
 import json
 import os
 import string
 import time
 import random
 
-import ConfigSpace as CS
+import Pyro4
 
 from ConfigSpace.read_and_write import json as csjson
 
 from hpolib.config import HPOlibConfig
-
-import abc
 
 
 class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
