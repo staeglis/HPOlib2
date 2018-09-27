@@ -43,10 +43,7 @@ class BenchmarkServer():
         cDict = json.loads(cString)
         cs = csjson.read(csString)
         configuration = CS.Configuration(cs, cDict)
-        if kwargsStr == "{}":
-            result = self.b.objective_function(configuration)
-        else:
-            result = self.b.objective_function(configuration, **json.loads(kwargsStr))
+        result = self.b.objective_function(configuration, **json.loads(kwargsStr))
         return json.dumps(result, indent=None)
 
     def objective_function_test_list(self, xString, kwargsStr):
