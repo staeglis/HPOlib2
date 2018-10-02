@@ -11,7 +11,7 @@ except ImportError:
     print("This can be done via `pip install SMAC`")
 
 
-def main(b, myrng):
+def main(b, rng):
     # Runs SMAC on a given benchmark
     scenario = Scenario({
         "run_obj": "quality",
@@ -19,7 +19,7 @@ def main(b, myrng):
         "cs": b.get_configuration_space(),
         "deterministic": "true",
         "output_dir": "./{:s}/run-{:d}".format(b.get_meta_information()['name'],
-                                               seed)})
+                                               10)})
 
     
     smac = SMAC(scenario=scenario, tae_runner=b,
