@@ -35,7 +35,8 @@ def main(b, rng):
 
 
 if __name__ == "__main__":
-    seed = random.randint(1, 101)
+    # seed = random.randint(1, 101)
+    seed = 10
     print("Seed: %d" % seed)
     myrng = np.random.RandomState(seed)
     print("Running native:")
