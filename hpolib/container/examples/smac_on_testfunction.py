@@ -34,7 +34,7 @@ def main(b, rng):
     print("Best value found:\n {:s}".format(str(x_star)))
     objFunc = b.objective_function(x_star)
     print("with {:s}".format(str(objFunc)))
-    return configuration.get_dictionary()['x0'] + ";" + configuration.get_dictionary()['x1'] + ";" + objFunc['function_value'] + ";" + objFunc['loss']
+    return x_star.get_dictionary()['x0'] + ";" + x_star.get_dictionary()['x1'] + ";" + objFunc['function_value'] + ";" + objFunc['loss']
 
 if __name__ == "__main__":
     # seed = random.randint(1, 101)
