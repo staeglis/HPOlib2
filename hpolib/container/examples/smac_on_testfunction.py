@@ -28,11 +28,13 @@ def main(b, rng):
     smac = SMAC(scenario=scenario, tae_runner=b,
                 rng=myrng)
     x_star = smac.optimize()
-    print("Done, took totally %.2f s" % ((time.time() - startTime)))
+    endTime = time.time() - startTime
+    print("Done, took totally %.2f s" % ((endTime)))
 
     print("Best value found:\n {:s}".format(str(x_star)))
-    print("with {:s}".format(str(b.objective_function(x_star))))
-
+    objFunc = b.objective_function(x_star)
+    print("with {:s}".format(str(objFunc)))
+    return configuration.get_dictionary()['x0'] + ";" + configuration.get_dictionary()['x1'] + ";" + objFunc['function_value'] + ";" + objFunc['loss']
 
 if __name__ == "__main__":
     # seed = random.randint(1, 101)
@@ -40,6 +42,7 @@ if __name__ == "__main__":
     print("Seed: %d" % seed)
     myrng = np.random.RandomState(seed)
     print("Running native:")
-    main(b=SvmOnVehicle(), rng=myrng)
+    csv = main(b=SvmOnVehicle(), rng=myrng) + ";"
     print("Running as container:")
-    main(b=SvmOnVehicleContainer(), rng=myrng)
+    csv += main(b=SvmOnVehicleContainer(), rng=myrng)
+    print(csv)
