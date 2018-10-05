@@ -34,7 +34,8 @@ def main(b, rng):
     print("Best value found:\n {:s}".format(str(x_star)))
     objFunc = b.objective_function(x_star)
     print("with {:s}".format(str(objFunc)))
-    return "{:.5f}".format(x_star.get_dictionary()['x0']) + ";" + "{:.5f}".format(x_star.get_dictionary()['x1']) + ";" + "{:.5f}".format(objFunc['function_value']) + ";" + "{:.5f}".format(objFunc['loss'])
+    csv = "{:.5f}".format(x_star.get_dictionary()['x0']) + ";" + "{:.5f}".format(x_star.get_dictionary()['x1']) + ";" + "{:.5f}".format(objFunc['function_value']) + ";" + "{:.5f}".format(objFunc['loss'])
+    return csv
 
 if __name__ == "__main__":
     # seed = random.randint(1, 101)
@@ -43,6 +44,7 @@ if __name__ == "__main__":
     myrng = np.random.RandomState(seed)
     print("Running native:")
     csv = main(b=SvmOnVehicle(), rng=myrng) + ";"
+    print(csv)
     print("Running as container:")
     csv += main(b=SvmOnVehicleContainer(), rng=myrng)
     print(csv)
