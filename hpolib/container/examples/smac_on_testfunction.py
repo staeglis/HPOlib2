@@ -34,7 +34,7 @@ def main(b, rng):
     print("Best value found:\n {:s}".format(str(x_star)))
     objFunc = b.objective_function(x_star)
     print("with {:s}".format(str(objFunc)))
-    csv = "{:.5f}".format(x_star.get_dictionary()['x0']) + ";" + "{:.5f}".format(x_star.get_dictionary()['x1']) + ";" + "{:.5f}".format(objFunc['function_value']) + ";" + "{:.5f}".format(objFunc['loss'])
+    csv = "{:.5f}".format(x_star.get_dictionary()['x0']) + ";" + "{:.5f}".format(x_star.get_dictionary()['x1']) + ";" + "{:.5f}".format(objFunc['function_value']) + ";" + "{:.5f}".format(objFunc['cost'])
     return csv
 
 if __name__ == "__main__":
