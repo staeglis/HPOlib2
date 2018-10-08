@@ -72,6 +72,7 @@ class MNISTData(HoldoutDataManager):
         Loads MNIST from data directory as defined in _config.data_directory.
         Downloads data if necessary. Code is copied and modified from the
         Lasagne tutorial.
+
         Returns
         -------
         X_train: np.array
@@ -108,12 +109,14 @@ class MNISTData(HoldoutDataManager):
         Loads data in Yann LeCun's binary format as available under
         'http://yann.lecun.com/exdb/mnist/'.
         If necessary downloads data, otherwise loads data from data_directory
+
         Parameters
         ----------
         filename: str
             file to download
         images: bool
             if True converts data to X
+
         Returns
         -------
         data: array
@@ -173,6 +176,7 @@ class CIFAR10Data(DataManager):
         """
         Loads CIFAR10 from data directory as defined in _config.data_directory.
         Downloads data if necessary.
+
         Returns
         -------
         X_train: np.array
@@ -227,10 +231,12 @@ class CIFAR10Data(DataManager):
     def __load_data(self, filename):
         """
         Loads data in binary format as available under 'https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz'.
+
         Parameters
         ----------
         filename: str
             file to download
+
         Returns
         -------
         filename: string
@@ -273,6 +279,7 @@ class SVHNData(DataManager):
         """
         Loads SVHN from data directory as defined in _config.data_directory.
         Downloads data if necessary.
+
         Returns
         -------
         X_train: np.array
@@ -311,12 +318,14 @@ class SVHNData(DataManager):
     def __load_data(self, filename_train, filename_test):
         """
         Loads data in binary format as available under 'http://ufldl.stanford.edu/housenumbers/'.
+
         Parameters
         ----------
         filename_train: str
             file to download
         filename_test: str
             file to download
+
         Returns
         -------
         filename: string
@@ -368,6 +377,7 @@ class BostonHousingData(HoldoutDataManager):
         """
         Loads BostonHousing from data directory as defined in _config.data_directory.
         Downloads data if necessary.
+
         Returns
         -------
         X_train: np.array
@@ -396,6 +406,7 @@ class BostonHousingData(HoldoutDataManager):
         Loads data from UCI website
         https://archive.ics.uci.edu/ml/machine-learning-databases/housing/
         If necessary downloads data, otherwise loads data from data_directory
+
         Parameters
         ----------
         filename: str
@@ -436,6 +447,7 @@ class ProteinStructureData(HoldoutDataManager):
         Loads Physicochemical Properties of Protein Tertiary Structure Data Set
         from data directory as defined in _config.data_directory.
         Downloads data if necessary from UCI.
+
         Returns
         -------
         X_train: np.array
@@ -465,6 +477,7 @@ class ProteinStructureData(HoldoutDataManager):
         Loads data from UCI website
         https://archive.ics.uci.edu/ml/machine-learning-databases/housing/
         If necessary downloads data, otherwise loads data from data_directory
+
         Parameters
         ----------
         filename: str
@@ -507,6 +520,7 @@ class YearPredictionMSDData(HoldoutDataManager):
         Loads Physicochemical Properties of Protein Tertiary Structure Data Set
         from data directory as defined in _config.data_directory.
         Downloads data if necessary from UCI.
+
         Returns
         -------
         X_train: np.array
@@ -534,6 +548,7 @@ class YearPredictionMSDData(HoldoutDataManager):
         Loads data from UCI website
         https://archive.ics.uci.edu/ml/machine-learning-databases/00203/
         If necessary downloads data, otherwise loads data from data_directory
+
         Parameters
         ----------
         filename: str
@@ -563,4 +578,4 @@ class YearPredictionMSDData(HoldoutDataManager):
         else:
             data = np.load(data_fn)
 
-return(data)
+        return(data)
