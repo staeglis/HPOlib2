@@ -13,11 +13,14 @@ from hpolib.config import HPOlibConfig
 
 
 class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
-    def _setup(self, gpu=False):
+    def _setup(self, gpu=False, imgName=None):
         self.socketId = self.id_generator()
         self.config = HPOlibConfig()
 
-        os.system("singularity pull --name %s.simg %s:%s" % (self.bName, self.config.image_source, self.bName.lower()))
+        if imgName is None:
+            imgName = self.bName.lower()
+
+        os.system("singularity pull --name %s.simg %s:%s" % (self.bName, self.config.image_source, imgName))
         if gpu:
             os.system("singularity instance.start --nv %s.simg %s" % (self.bName, self.socketId))
         else:

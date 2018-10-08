@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu
+From: nvidia/cuda/9.2-base-ubuntu18.04
 
 %labels
 MAINTAINER Stefan Staeglich
