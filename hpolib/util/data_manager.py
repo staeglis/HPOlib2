@@ -387,18 +387,18 @@ class BostonHousingData(HoldoutDataManager):
         X_test: np.array
         y_test: np.array
         """
-        
+
         data = self.__load_data('housing.data')
-        
+
         N = data.shape[0]
-        
+
         n_train = int(N * 0.6)
         n_val = int(N * 0.2)
-        
+
         X_train, y_train = data[:n_train, :-1], data[:n_train,-1]
         X_val, y_val = data[n_train:n_train+n_val, :-1], data[n_train:n_train+n_val,-1]
         X_test, y_test = data[n_train+n_val:, :-1], data[n_train+n_val:,-1]
-        
+
         return X_train, y_train, X_val, y_val, X_test, y_test
 
     def __load_data(self, filename, images=False):
@@ -441,7 +441,6 @@ class ProteinStructureData(HoldoutDataManager):
             os.makedirs(self.save_to)
 
 
-
     def load(self):
         """
         Loads Physicochemical Properties of Protein Tertiary Structure Data Set
@@ -457,19 +456,19 @@ class ProteinStructureData(HoldoutDataManager):
         X_test: np.array
         y_test: np.array
         """
-        
+
         data = self.__load_data('CASP.csv')
-        
+
         N = data.shape[0]
-        
+
         n_train = int(N * 0.6)
         n_val = int(N * 0.2)
-        
+
         # note the target value is the first column for this dataset!
         X_train, y_train = data[:n_train, 1:], data[:n_train,0]
         X_val, y_val = data[n_train:n_train+n_val, 1:], data[n_train:n_train+n_val,0]
         X_test, y_test = data[n_train+n_val:, 1:], data[n_train+n_val:,0]
-        
+
         return X_train, y_train, X_val, y_val, X_test, y_test
 
     def __load_data(self, filename, images=False):
@@ -499,8 +498,6 @@ class ProteinStructureData(HoldoutDataManager):
         return(np.loadtxt(save_fl, delimiter=',', skiprows=1))
 
 
-
-
 class YearPredictionMSDData(HoldoutDataManager):
 
     def __init__(self):
@@ -512,7 +509,6 @@ class YearPredictionMSDData(HoldoutDataManager):
         if not os.path.isdir(self.save_to):
             self.logger.debug("Create directory %s", self.save_to)
             os.makedirs(self.save_to)
-
 
 
     def load(self):
@@ -572,7 +568,7 @@ class YearPredictionMSDData(HoldoutDataManager):
 
             with zipfile.ZipFile(orig_data_fn, 'r') as zf:
                 with zf.open('YearPredictionMSD.txt','r') as fh:
-                    data = np.loadtxt(fh, delimiter=',')        
+                    data = np.loadtxt(fh, delimiter=',')
         
             np.save(data_fn, data)
         else:

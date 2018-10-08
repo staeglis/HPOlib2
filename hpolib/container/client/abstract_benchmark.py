@@ -22,9 +22,9 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
 
         os.system("singularity pull --name %s.simg %s:%s" % (self.bName, self.config.image_source, imgName))
         if gpu:
-            os.system("singularity instance.start --nv %s.simg %s" % (self.bName, self.socketId))
+            os.system("singularity instance.start --nv %s.simg %s %s" % (self.bName, self.bName, self.socketId))
         else:
-            os.system("singularity instance.start %s.simg %s" % (self.bName, self.socketId))
+            os.system("singularity instance.start %s.simg %s %s" % (self.bName, self.bName, self.socketId))
         os.system("singularity run instance://%s %s&" % (self.socketId, self.socketId))
 
         Pyro4.config.REQUIRE_EXPOSE = False

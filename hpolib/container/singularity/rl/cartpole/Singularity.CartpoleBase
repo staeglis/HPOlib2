@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu
+From: nvidia/cuda:9.2-base-ubuntu18.04
 
 %labels
 MAINTAINER Stefan Staeglich
@@ -16,4 +16,4 @@ MAINTAINER Stefan Staeglich
     pip3 install tensorflow-gpu tensorforce
 
 %runscript
-    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py rl.cartpole CartpoleBase $@
+    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py rl.cartpole $@
