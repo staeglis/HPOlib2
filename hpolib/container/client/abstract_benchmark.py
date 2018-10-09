@@ -1,5 +1,6 @@
 import abc
 import json
+import numpy
 import os
 import string
 import time
@@ -36,6 +37,11 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         self.uri = u.strip()
         self.b = Pyro4.Proxy(self.uri)
 
+        # Handle rng and other optional benchmark arguments
+        if 'rng' in kwargs and type(kwargs['rng']) == numpy.random.RandomState:
+            (rnd0, rnd1, rnd2, rnd3, rnd4) = kwargs['rng'].get_state()
+            rnd1 = [int(number) for number in rnd1]
+            kwargs['rng'] = (rnd0, rnd1, rnd2, rnd3, rnd4)
         kwargsStr = json.dumps(kwargs)
         print("Check connection to container and init benchmark")
         while True:
