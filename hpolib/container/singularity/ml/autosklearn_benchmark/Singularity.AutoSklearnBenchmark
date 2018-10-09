@@ -11,7 +11,7 @@ MAINTAINER Stefan Staeglich
     pip3 install git+https://github.com/automl/ConfigSpace.git@master
     apt install python3-scipy python3-sklearn -y
     pip3 install git+https://github.com/staeglis/HPOlib2@container
-    apt install pyro4 python3-pyro4 -y
+    pip3 install pyro4
     apt install swig swig3.0 -y
     pip3 install --upgrade pynisher==0.4.2
     pip3 install scikit-learn
