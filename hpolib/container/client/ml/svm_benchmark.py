@@ -1,37 +1,37 @@
 from hpolib.container.client.abstract_benchmark import AbstractBenchmarkClient
 
 
-class SvmOnMnist(AbstractBenchmarkClient, **kwargs):
-    def __init__(self):
+class SvmOnMnist(AbstractBenchmarkClient):
+    def __init__(self, **kwargs):
         self.bName = "SvmOnMnist"
         self.setup(**kwargs)
 
 
-class SvmOnVehicle(AbstractBenchmarkClient, **kwargs):
-    def __init__(self):
+class SvmOnVehicle(AbstractBenchmarkClient):
+    def __init__(self, **kwargs):
         self.bName = "SvmOnVehicle"
         self._setup(**kwargs)
 
 
-class SvmOnCovertype(AbstractBenchmarkClient, **kwargs):
-    def __init__(self):
+class SvmOnCovertype(AbstractBenchmarkClient):
+    def __init__(self, **kwargs):
         self.bName = "SvmOnCovertype"
         self._setup(**kwargs)
 
 
-class SvmOnLetter(AbstractBenchmarkClient, **kwargs):
-    def __init__(self):
+class SvmOnLetter(AbstractBenchmarkClient):
+    def __init__(self, **kwargs):
         self.bName = "SvmOnLetter"
         self._setup(**kwargs)
 
 
-class SvmOnAdult(AbstractBenchmarkClient, **kwargs):
-    def __init__(self):
+class SvmOnAdult(AbstractBenchmarkClient):
+    def __init__(self, **kwargs):
         self.bName = "SvmOnAdult"
         self._setup(**kwargs)
 
 
-class SvmOnHiggs(AbstractBenchmarkClient, **kwargs):
-    def __init__(self):
+class SvmOnHiggs(AbstractBenchmarkClient):
+    def __init__(self, **kwargs):
         self.bName = "SvmOnHiggs"
         self._setup(**kwargs)
