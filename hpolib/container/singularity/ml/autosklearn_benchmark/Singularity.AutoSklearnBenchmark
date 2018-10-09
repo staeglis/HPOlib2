@@ -16,4 +16,4 @@ MAINTAINER Stefan Staeglich
     pip3 install auto-sklearn
 
 %runscript
-    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.autosklearn_benchmark
+    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.autosklearn_benchmark $@
