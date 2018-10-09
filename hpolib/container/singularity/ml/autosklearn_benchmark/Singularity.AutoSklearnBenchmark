@@ -13,6 +13,7 @@ MAINTAINER Stefan Staeglich
     pip3 install git+https://github.com/staeglis/HPOlib2@container
     apt install pyro4 python3-pyro4 -y
     apt install swig3.0 -y
+    pip3 install pyrfr
     pip3 install auto-sklearn
 
 %runscript
