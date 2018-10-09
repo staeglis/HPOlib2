@@ -13,7 +13,6 @@ MAINTAINER Stefan Staeglich
     pip3 install git+https://github.com/automl/ConfigSpace.git@master
     apt install python3-scipy python3-sklearn -y
     pip3 install git+https://github.com/staeglis/HPOlib2@container
-    apt install pyro4 python3-pyro4 -y
     pip3 install pyro4
     pip3 install recommonmark
     pip3 install tensorflow-gpu tensorforce
