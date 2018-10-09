@@ -24,10 +24,16 @@ class BenchmarkServer():
             os.remove(socketPath)
         self.daemon = Pyro4.Daemon(unixsocket=socketPath)
 
-        self.b = Benchmark()
         uri = self.daemon.register(self, self.socketId + ".unixsock")
         # start the event loop of the server to wait for calls
         self.daemon.requestLoop(loopCondition=lambda: self.pyroRunning)
+
+    def initBenchmark(self, kwargsStr):
+        if kwargsStr != "{}":
+            kwargs = json.loads(kwargsStr)
+            self.b = Benchmark(**kwargs)
+        else:
+            self.b = Benchmark()
 
     def get_configuration_space(self):
         result = self.b.get_configuration_space()

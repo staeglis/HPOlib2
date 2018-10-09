@@ -13,7 +13,7 @@ from hpolib.config import HPOlibConfig
 
 
 class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
-    def _setup(self, gpu=False, imgName=None):
+    def _setup(self, gpu=False, imgName=None, **kwargs):
         self.socketId = self.id_generator()
         self.config = HPOlibConfig()
 
@@ -35,10 +35,12 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.config.socket_dir + self.socketId + "_unix.sock"
         self.uri = u.strip()
         self.b = Pyro4.Proxy(self.uri)
-        print("Check connection to container")
+
+        kwargsStr = json.dumps(kwargs)
+        print("Check connection to container and init benchmark")
         while True:
             try:
-                self.b.get_meta_information()
+                self.b.initBenchmark(kwargsStr)
             except Pyro4.errors.CommunicationError:
                 print("Still waiting")
                 time.sleep(5)

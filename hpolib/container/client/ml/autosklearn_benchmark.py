@@ -1,84 +1,73 @@
 from hpolib.container.client.abstract_benchmark import AbstractBenchmarkClient
 
 
-class AutoSklearnBenchmark(AbstractBenchmarkClient):
-    def __init__(self):
-        self.bName = "AutoSklearnBenchmark"
-
-
-class MulticlassClassificationBenchmark(AbstractBenchmarkClient):
-    def __init__(self):
-        self.bName = "MulticlassClassificationBenchmark"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
-
-
-class Sick(AbstractBenchmarkClient):
+class Sick(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "Sick"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class Splice(AbstractBenchmarkClient):
+class Splice(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "Splice"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class Adult(AbstractBenchmarkClient):
+class Adult(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "Adult"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class KROPT(AbstractBenchmarkClient):
+class KROPT(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "KROPT"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class MNIST(AbstractBenchmarkClient):
+class MNIST(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "MNIST"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class Quake(AbstractBenchmarkClient):
+class Quake(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "Quake"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class PC4(AbstractBenchmarkClient):
+class PC4(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "PC4"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class KDDCup09_appetency(AbstractBenchmarkClient):
+class KDDCup09_appetency(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "KDDCup09_appetency"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class MagicTelescope(AbstractBenchmarkClient):
+class MagicTelescope(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "MagicTelescope"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class OVABreast(AbstractBenchmarkClient):
+class OVABreast(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "OVABreast"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class Covertype(AbstractBenchmarkClient):
+class Covertype(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "Covertype"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class FBIS_WC(AbstractBenchmarkClient):
+class FBIS_WC(AbstractBenchmarkClient, **kwargs):
     def __init__(self):
         self.bName = "FBIS_WC"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark")
+        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
