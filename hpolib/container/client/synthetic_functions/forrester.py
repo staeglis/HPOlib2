@@ -1,3 +1,7 @@
+'''
+@author: Stefan Staeglich
+'''
+
 from hpolib.container.client.abstract_benchmark import AbstractBenchmarkClient
 
 

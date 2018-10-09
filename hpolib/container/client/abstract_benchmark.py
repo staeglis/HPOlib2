@@ -1,3 +1,7 @@
+'''
+@author: Stefan Staeglich
+'''
+
 import abc
 import json
 import numpy

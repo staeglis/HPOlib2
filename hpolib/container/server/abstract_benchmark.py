@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+'''
+@author: Stefan Staeglich
+'''
+
 import numpy
 import os
 import random
