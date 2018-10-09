@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu
+From: ubuntu:18.04
 
 %labels
 MAINTAINER Stefan Staeglich
@@ -13,7 +13,7 @@ MAINTAINER Stefan Staeglich
     pip3 install git+https://github.com/staeglis/HPOlib2@container
     apt install pyro4 python3-pyro4 -y
     apt install swig swig3.0 -y
-    pip3 install pynisher==0.5.0
+    pip3 install --upgrade pynisher==0.5.0
     pip3 install auto-sklearn
 
 %runscript
