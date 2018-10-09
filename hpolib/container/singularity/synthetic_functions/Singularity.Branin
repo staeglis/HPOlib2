@@ -14,4 +14,4 @@ MAINTAINER Stefan Staeglich
     apt install pyro4 python3-pyro4 -y
 
 %runscript
-    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py synthetic_functions.branin $@
+    python3 -s /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py synthetic_functions.branin $@
