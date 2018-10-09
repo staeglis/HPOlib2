@@ -15,7 +15,7 @@ MAINTAINER Stefan Staeglich
     pip3 install git+https://github.com/staeglis/HPOlib2@container
     pip3 install pyro4
     pip3 install recommonmark
-    pip3 install tensorflow-gpu tensorforce
+    pip3 install tensorflow-gpu gym tensorforce
 
 %runscript
     python3 /usr/local/lib/python3.5/dist-packages/hpolib/container/server/abstract_benchmark.py rl.cartpole $@
