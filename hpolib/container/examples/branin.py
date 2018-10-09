@@ -10,7 +10,9 @@ import ConfigSpace
 
 # Perform random search on the Branin function
 
-b = Branin()
+myrng = np.abs(10)
+myrng = np.random.RandomState(myrng)
+b = Branin(rng=myrng)
 start = time.time()
 
 values = []
