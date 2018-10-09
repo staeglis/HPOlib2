@@ -17,11 +17,13 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         self.socketId = self.id_generator()
         self.config = HPOlibConfig()
 
+        # Default image name is benchmark name
         if imgName is None:
-            imgName = self.bName.lower()
+            imgName = self.bName
+        print(imgName)
 
-        os.system("singularity pull --name %s.simg %s:%s" % (self.bName, self.config.image_source, imgName))
-        iOptions = "%s.simg %s" % (self.bName, self.socketId)
+        os.system("singularity pull --name %s.simg %s:%s" % (imgName, self.config.image_source, imgName.lower()))
+        iOptions = "%s.simg %s" % (imgName, self.socketId)
         sOptions = "instance://%s %s %s&" % (self.socketId, self.bName, self.socketId)
         if gpu:
             iOptions = "--nv " + iOptions
