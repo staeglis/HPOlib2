@@ -34,7 +34,7 @@ class BenchmarkServer():
             kwargs = json.loads(kwargsStr)
             if 'rng' in kwargs and type(kwargs['rng']) == list:
                 (rnd0, rnd1, rnd2, rnd3, rnd4) = kwargs['rng']
-                rnd1 = [np.uint32(number) for number in rnd1]
+                rnd1 = [numpy.uint32(number) for number in rnd1]
                 kwargs['rng'] = numpy.random.set_state((rnd0, rnd1, rnd2, rnd3, rnd4))
             self.b = Benchmark(**kwargs)
         else:
