@@ -47,13 +47,19 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
             kwargs['rng'] = (rnd0, rnd1, rnd2, rnd3, rnd4)
         kwargsStr = json.dumps(kwargs)
         print("Check connection to container and init benchmark")
+        wait = 0
         while True:
             try:
                 self.b.initBenchmark(kwargsStr)
             except Pyro4.errors.CommunicationError:
                 print("Still waiting")
                 time.sleep(5)
-                continue
+                wait += 5
+                if wait < self.config.pyro_connect_max_wait:
+                    continue
+                else:
+                    print("Waiting time exceeded. To high it up, adjust option pyro_connect_max_wait.")
+                    raise
             break
         print("Connected to container")
 
