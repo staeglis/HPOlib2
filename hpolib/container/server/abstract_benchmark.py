@@ -24,7 +24,7 @@ class BenchmarkServer():
     def __init__(self, benchmark, socketId):
         self.pyroRunning = True
         config = HPOlibConfig()
-        self.logger = config.logger()
+        self.logger = config.logger
 
         self.socketId = socketId
         socketPath = config.socket_dir + self.socketId + "_unix.sock"
