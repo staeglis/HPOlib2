@@ -37,8 +37,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
 
         Pyro4.config.REQUIRE_EXPOSE = False
 
-        u = "PYRO:" + self.socketId + ".unixsock@./u:" + self.config.socket_dir + self.socketId + "_unix.sock"
-        self.uri = u.strip()
+        self.uri = "PYRO:" + self.socketId + ".unixsock@./u:" + self.config.socket_dir + self.socketId + "_unix.sock"
         self.b = Pyro4.Proxy(self.uri)
 
         # Handle rng and other optional benchmark arguments
