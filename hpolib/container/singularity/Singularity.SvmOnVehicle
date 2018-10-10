@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu
+From: ubuntu:18.04
 
 %labels
 MAINTAINER Stefan Staeglich
@@ -19,4 +19,4 @@ MAINTAINER Stefan Staeglich
     chmod -R 777 /var/lib/hpolib/
 
 %runscript
-    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.svm_benchmark SvmOnVehicle $@
+    python3 -s /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.svm_benchmark $@
