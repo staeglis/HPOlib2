@@ -65,7 +65,7 @@ class OVABreast(AbstractBenchmarkClient):
         self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
 
 
-class Covertype(AbstractBenchmarkClient:
+class Covertype(AbstractBenchmarkClient):
     def __init__(self, **kwargs):
         self.bName = "Covertype"
         self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
