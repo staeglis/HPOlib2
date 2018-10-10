@@ -26,8 +26,8 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         if imgName is None:
             imgName = self.bName
 
-        os.system("singularity pull --name %s.simg %s:%s" % (imgName, self.config.image_source, imgName.lower()))
-        iOptions = "%s.simg %s" % (imgName, self.socketId)
+        os.system("SINGULARITY_PULLFOLDER=%s singularity pull --name %s.simg %s:%s" % (self.config.image_dir, imgName, self.config.image_source, imgName.lower()))
+        iOptions = "%s%s.simg %s" % (self.config.image_dir, imgName, self.socketId)
         sOptions = "instance://%s %s %s&" % (self.socketId, self.bName, self.socketId)
         if gpu:
             iOptions = "--nv " + iOptions

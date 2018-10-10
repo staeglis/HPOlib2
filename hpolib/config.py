@@ -30,6 +30,7 @@ class HPOlibConfig:
         self.defaults = {'verbosity': 0,
                          'data_dir': os.path.expanduser("~/.hpolib/"),
                          'socket_dir': os.path.expanduser("~/.cache/hpolib/"),
+                         'image_dir': "/tmp/hpolib-" + str(os.getuid()) + "/",
                          'image_source': "shub://staeglis/HPOlib2",
                          'use_global_data': True}
 
@@ -63,6 +64,7 @@ class HPOlibConfig:
         # Check whether data_dir exists, if not create
         self.__check_data_dir(self.data_dir)
         self.__check_data_dir(self.socket_dir)
+        self.__check_data_dir(self.image_dir)
 
     @staticmethod
     def __make_abs_path(path):
@@ -100,6 +102,7 @@ class HPOlibConfig:
         # Store configuration
         self.data_dir = self.__get_config_option('data_dir')
         self.socket_dir = self.__get_config_option('socket_dir')
+        self.image_dir = self.__get_config_option('image_dir')
         self.image_source = self.__get_config_option('image_source')
         self.use_global_data = self.__get_config_option('use_global_data')
 
