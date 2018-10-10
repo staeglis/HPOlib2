@@ -46,22 +46,22 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
             rnd1 = [int(number) for number in rnd1]
             kwargs['rng'] = (rnd0, rnd1, rnd2, rnd3, rnd4)
         kwargsStr = json.dumps(kwargs)
-        print("Check connection to container and init benchmark")
+        self.config.logger.debug("Check connection to container and init benchmark")
         wait = 0
         while True:
             try:
                 self.b.initBenchmark(kwargsStr)
             except Pyro4.errors.CommunicationError:
-                print("Still waiting")
+                self.config.logger.debug("Still waiting")
                 time.sleep(5)
                 wait += 5
                 if wait < self.config.pyro_connect_max_wait:
                     continue
                 else:
-                    print("Waiting time exceeded. To high it up, adjust option pyro_connect_max_wait.")
+                    self.config.logger.debug("Waiting time exceeded. To high it up, adjust option pyro_connect_max_wait.")
                     raise
             break
-        print("Connected to container")
+        self.config.logger.debug("Connected to container")
 
     def objective_function(self, x, **kwargs):
         # Create the arguments as Str

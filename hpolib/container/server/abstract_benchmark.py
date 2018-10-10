@@ -24,6 +24,7 @@ class BenchmarkServer():
     def __init__(self, benchmark, socketId):
         self.pyroRunning = True
         config = HPOlibConfig()
+        self.logger = config.logger()
 
         self.socketId = socketId
         socketPath = config.socket_dir + self.socketId + "_unix.sock"
@@ -83,7 +84,7 @@ class BenchmarkServer():
 
     @Pyro4.oneway   # in case call returns much later than daemon.shutdown
     def shutdown(self):
-        print('shutting down...')
+        self.logger.debug('shutting down...')
         Pyro4.config.COMMTIMEOUT = 0.5
         self.pyroRunning = False
         self.daemon.shutdown()
