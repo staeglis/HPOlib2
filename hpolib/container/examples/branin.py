@@ -3,7 +3,7 @@ import numpy as np
 
 # from hpolib.benchmarks.synthetic_functions import Branin
 # from hpolib.container.branin.client import Branin
-from hpolib.container.client.synthetic_functions.branin import Branin
+from hpolib.container.client.synthetic_functions import Branin
 
 import ConfigSpace
 
