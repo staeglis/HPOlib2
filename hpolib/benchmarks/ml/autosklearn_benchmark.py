@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import random
 import pickle
 import tempfile
 
@@ -44,8 +45,8 @@ class AutoSklearnBenchmark(AbstractBenchmark):
         super().__init__(rng)
 
     def _setup_backend(self):
-        tmp_folder = tempfile.mkdtemp()
-        output_folder = tempfile.mkdtemp()
+        tmp_folder = "/tmp/hpolib-autosklearn-" + ''.join(random.choice(chars) for _ in range(10))
+        output_folder = "/tmp/hpolib-autosklearn-" + ''.join(random.choice(chars) for _ in range(10))
         self.backend = autosklearn.util.backend.create(
             temporary_directory=tmp_folder,
             output_directory=output_folder,
