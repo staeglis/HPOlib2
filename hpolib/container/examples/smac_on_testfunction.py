@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import string
 import sys
 import time
 from hpolib.container.client.ml.svm_benchmark import SvmOnVehicle as SvmOnVehicleContainer
@@ -13,7 +14,7 @@ except ImportError:
     print("This can be done via `pip install SMAC`")
 
 
-def main(b, rng):
+def main(b, rng, seed, dir):
     # Runs SMAC on a given benchmark
     startTime = time.time()
     scenario = Scenario({
@@ -21,8 +22,8 @@ def main(b, rng):
         "runcount-limit": b.get_meta_information()['num_function_evals'],
         "cs": b.get_configuration_space(),
         "deterministic": "true",
-        "output_dir": "./{:s}/run-{:d}".format(b.get_meta_information()['name'],
-                                               10)})
+        "output_dir": "./{:s}/run-{:d}/{:s}".format(b.get_meta_information()['name'],
+                                               seed, dir)})
 
 
     smac = SMAC(scenario=scenario, tae_runner=b,
@@ -38,13 +39,15 @@ def main(b, rng):
     return csv
 
 if __name__ == "__main__":
-    # seed = random.randint(1, 101)
-    seed = 10
+    chars = string.ascii_uppercase + string.digits
+    id = ''.join(random.choice(chars) for _ in range(10)
+    
+    seed = random.randint(1, 101)
     print("Seed: %d" % seed)
     myrng = np.random.RandomState(seed)
     print("Running native:")
-    csv = main(b=SvmOnVehicle(), rng=myrng) + ";"
+    csv = main(b=SvmOnVehicle(), rng=myrng, seed, id + "/native") + ";"
     print(csv)
     print("Running as container:")
-    csv += main(b=SvmOnVehicleContainer(), rng=myrng)
+    csv += main(b=SvmOnVehicleContainer(), rng=myrng, seed, id + "/container")
     print(csv)
