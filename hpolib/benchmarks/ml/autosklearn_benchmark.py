@@ -3,6 +3,7 @@ import logging
 import os
 import random
 import pickle
+import string
 import tempfile
 
 import lockfile
