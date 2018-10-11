@@ -3,7 +3,6 @@ import logging
 import os
 import random
 import pickle
-import string
 import tempfile
 
 import lockfile
@@ -46,6 +45,7 @@ class AutoSklearnBenchmark(AbstractBenchmark):
         super().__init__(rng)
 
     def _setup_backend(self):
+        chars = string.ascii_uppercase + string.digits
         tmp_folder = "/tmp/hpolib-autosklearn-" + ''.join(random.choice(chars) for _ in range(10))
         output_folder = "/tmp/hpolib-autosklearn-" + ''.join(random.choice(chars) for _ in range(10))
         self.backend = autosklearn.util.backend.create(
