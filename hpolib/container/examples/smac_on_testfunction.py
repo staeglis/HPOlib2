@@ -40,7 +40,7 @@ def main(b, rng, seed, dir):
 
 if __name__ == "__main__":
     chars = string.ascii_uppercase + string.digits
-    id = ''.join(random.choice(chars) for _ in range(10)
+    id = ''.join(random.choice(chars) for _ in range(10))
     
     seed = random.randint(1, 101)
     print("Seed: %d" % seed)
