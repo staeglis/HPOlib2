@@ -46,8 +46,8 @@ if __name__ == "__main__":
     print("Seed: %d" % seed)
     myrng = np.random.RandomState(seed)
     print("Running native:")
-    csv = main(b=SvmOnVehicle(), rng=myrng, seed, id + "/native") + ";"
+    csv = main(SvmOnVehicle(), myrng, seed, id + "/native") + ";"
     print(csv)
     print("Running as container:")
-    csv += main(b=SvmOnVehicleContainer(), rng=myrng, seed, id + "/container")
+    csv += main(SvmOnVehicleContainer(), myrng, seed, id + "/container")
     print(csv)

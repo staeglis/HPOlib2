@@ -1,7 +1,7 @@
 import time
 import numpy as np
 
-# from hpolib.benchmarks.rl.carpole import CartpoleReduced
+# from hpolib.benchmarks.rl.cartpole import CartpoleReduced
 from hpolib.container.client.rl.cartpole import CartpoleReduced
 
 import ConfigSpace
