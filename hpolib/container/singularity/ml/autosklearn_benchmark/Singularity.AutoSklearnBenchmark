@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu:16.04
+From: ubuntu:18.04
 
 %labels
 MAINTAINER Stefan Staeglich
@@ -18,4 +18,4 @@ MAINTAINER Stefan Staeglich
     pip3 install auto-sklearn==0.3.0
 
 %runscript
-    python3 -s /usr/local/lib/python3.5/dist-packages/hpolib/container/server/abstract_benchmark.py ml.autosklearn_benchmark $@
+    python3 -s /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.autosklearn_benchmark $@
