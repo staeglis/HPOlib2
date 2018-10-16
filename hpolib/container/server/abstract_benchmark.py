@@ -54,6 +54,8 @@ class BenchmarkServer():
     def objective_function_list(self, xString, kwargsStr):
         x = json.loads(xString)
         result = self.b.objective_function(x, **json.loads(kwargsStr))
+        if 'status' in result:
+            result['status'] = result['status'].save_json_as_obj()
         return json.dumps(result, indent=None)
 
     def objective_function(self, cString, csString, kwargsStr):
@@ -61,11 +63,17 @@ class BenchmarkServer():
         cs = csjson.read(csString)
         configuration = CS.Configuration(cs, cDict)
         result = self.b.objective_function(configuration, **json.loads(kwargsStr))
+        # Handle SMAC runhistory
+        if 'status' in result:
+            result['status'] = result['status'].save_json_as_obj()
         return json.dumps(result, indent=None)
 
     def objective_function_test_list(self, xString, kwargsStr):
         x = json.loads(xString)
         result = self.b.objective_function_test(x, **json.loads(kwargsStr))
+        # Handle SMAC runhistory
+        if 'status' in result:
+            result['status'] = result['status'].save_json_as_obj()
         return json.dumps(result, indent=None)
 
     def objective_function_test(self, cString, csString, kwargsStr):
@@ -73,10 +81,16 @@ class BenchmarkServer():
         cs = csjson.read(csString)
         configuration = CS.Configuration(cs, cDict)
         result = self.b.objective_function_test(configuration, **json.loads(kwargsStr))
+        # Handle SMAC runhistory
+        if 'status' in result:
+            result['status'] = result['status'].save_json_as_obj()
         return json.dumps(result, indent=None)
 
     def test(self, argsStr, kwargsStr):
         result = self.b.test(*json.loads(argsStr), **json.loads(kwargsStr))
+        # Handle SMAC runhistory
+        if 'status' in result:
+            result['status'] = result['status'].save_json_as_obj()
         return json.dumps(result)
 
     def get_meta_information(self):
