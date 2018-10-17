@@ -1,3 +1,4 @@
+import ast
 import configparser
 import logging
 import os
@@ -33,7 +34,8 @@ class HPOlibConfig:
                          'image_dir': "/tmp/hpolib-" + str(os.getuid()) + "/",
                          'image_source': "shub://staeglis/HPOlib2",
                          'use_global_data': True,
-                         'pyro_connect_max_wait': 60}
+                         'pyro_connect_max_wait': 60,
+                         'singularity_use_instances': True}
 
         self._setup(self.config_file)
 
@@ -105,8 +107,9 @@ class HPOlibConfig:
         self.socket_dir = self.__get_config_option('socket_dir')
         self.image_dir = self.__get_config_option('image_dir')
         self.image_source = self.__get_config_option('image_source')
-        self.use_global_data = self.__get_config_option('use_global_data')
+        self.use_global_data = ast.literal_eval(self.__get_config_option('use_global_data'))
         self.pyro_connect_max_wait = int(self.__get_config_option('pyro_connect_max_wait'))
+        self.singularity_use_instances = ast.literal_eval(self.__get_config_option('singularity_use_instances'))
 
         # Use global data dir if exist
         if os.path.isdir(self.global_data_dir) and self.use_global_data:

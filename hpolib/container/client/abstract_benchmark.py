@@ -27,13 +27,18 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
             imgName = self.bName
 
         os.system("SINGULARITY_PULLFOLDER=%s singularity pull --name %s.simg %s:%s" % (self.config.image_dir, imgName, self.config.image_source, imgName.lower()))
-        iOptions = "%s%s.simg %s" % (self.config.image_dir, imgName, self.socketId)
-        sOptions = "instance://%s %s %s&" % (self.socketId, self.bName, self.socketId)
+        iOptions = "%s%s.simg" % (self.config.image_dir, imgName)
+        sOptions = "%s %s&" % (self.bName, self.socketId)
+        # Option for enabling GPU support
+        gpuOpt = ""
         if gpu:
-            iOptions = "--nv " + iOptions
-            sOptions = "--nv " + sOptions
-        os.system("singularity instance.start %s" % (iOptions))
-        os.system("singularity run %s" % (sOptions))
+            gpuOpt = "--nv "
+        # By default use named singularity instances. There exist a config option to disable this behaviour
+        if self.config.singularity_use_instances:
+            os.system("singularity instance.start %s%s %s" % (gpuOpt, iOptions, self.socketId))
+            os.system("singularity run %sinstance://%s %s" % (gpuOpt, self.socketId, sOptions))
+        else:
+            os.system("singularity run %s%s %s" % (gpuOpt, iOptions, sOptions))
 
         Pyro4.config.REQUIRE_EXPOSE = False
 
@@ -111,5 +116,6 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
     def __del__(self):
         Pyro4.config.COMMTIMEOUT = 1
         self.b.shutdown()
-        os.system("singularity instance.stop %s" % (self.socketId))
+        if self.config.singularity_use_instances:
+            os.system("singularity instance.stop %s" % (self.socketId))
         os.remove(self.config.socket_dir + self.socketId + "_unix.sock")
