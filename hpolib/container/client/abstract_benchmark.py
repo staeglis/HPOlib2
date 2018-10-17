@@ -6,11 +6,11 @@ import abc
 import json
 import numpy
 import os
-import string
-import time
 import random
 import signal
+import string
 import subprocess
+import time
 
 import Pyro4
 
@@ -45,7 +45,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
             self.sProcess = subprocess.Popen("singularity run %s%s %s" % (gpuOpt, iOptions, sOptions), shell=True)
 
         Pyro4.config.REQUIRE_EXPOSE = False
-
+        # Generate Pyro 4 URI for connecting to client
         self.uri = "PYRO:" + self.socketId + ".unixsock@./u:" + self.config.socket_dir + self.socketId + "_unix.sock"
         self.b = Pyro4.Proxy(self.uri)
 
@@ -55,6 +55,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
             rnd1 = [int(number) for number in rnd1]
             kwargs['rng'] = (rnd0, rnd1, rnd2, rnd3, rnd4)
         kwargsStr = json.dumps(kwargs)
+        # Try to connect to server calling benchmark constructor via RPC. There exist a time limit
         self.config.logger.debug("Check connection to container and init benchmark")
         wait = 0
         while True:
@@ -121,7 +122,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         Pyro4.config.COMMTIMEOUT = 1
         self.b.shutdown()
         if self.config.singularity_use_instances:
-            os.system("singularity instance.stop %s" % (self.socketId))
+            subprocess.run("singularity instance.stop %s" % (self.socketId), shell=True)
         else:
             os.killpg(os.getpgid(self.sProcess.pid), signal.SIGTERM)
             self.sProcess.terminate()
