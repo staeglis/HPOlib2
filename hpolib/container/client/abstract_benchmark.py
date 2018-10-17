@@ -9,6 +9,8 @@ import os
 import string
 import time
 import random
+import signal
+import subprocess
 
 import Pyro4
 
@@ -38,7 +40,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
             os.system("singularity instance.start %s%s %s" % (gpuOpt, iOptions, self.socketId))
             os.system("singularity run %sinstance://%s %s" % (gpuOpt, self.socketId, sOptions))
         else:
-            os.system("singularity run %s%s %s" % (gpuOpt, iOptions, sOptions))
+            self.sProcess = subprocess.Popen("singularity run %s%s %s" % (gpuOpt, iOptions, sOptions), shell=True)
 
         Pyro4.config.REQUIRE_EXPOSE = False
 
@@ -118,4 +120,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         self.b.shutdown()
         if self.config.singularity_use_instances:
             os.system("singularity instance.stop %s" % (self.socketId))
+        else:
+            os.killpg(os.getpgid(self.sProcess.pid), signal.SIGTERM)
+            self.sProcess.terminate()
         os.remove(self.config.socket_dir + self.socketId + "_unix.sock")
