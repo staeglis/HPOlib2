@@ -16,19 +16,19 @@ import Pyro4
 
 from ConfigSpace.read_and_write import json as csjson
 
-from hpolib.config import HPOlibConfig
+import hpolib.config
 
 
 class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
     def _setup(self, gpu=False, imgName=None, **kwargs):
         self.socketId = self.id_generator()
-        self.config = HPOlibConfig()
+        self.config = hpolib.config._config
 
         # Default image name is benchmark name
         if imgName is None:
             imgName = self.bName
 
-        os.system("SINGULARITY_PULLFOLDER=%s singularity pull --name %s.simg %s:%s" % (self.config.image_dir, imgName, self.config.image_source, imgName.lower()))
+        subprocess.run("SINGULARITY_PULLFOLDER=%s singularity pull --name %s.simg %s:%s" % (self.config.image_dir, imgName, self.config.image_source, imgName.lower()), shell=True)
         iOptions = "%s%s.simg" % (self.config.image_dir, imgName)
         sOptions = "%s %s&" % (self.bName, self.socketId)
         # Option for enabling GPU support
@@ -37,8 +37,8 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
             gpuOpt = "--nv "
         # By default use named singularity instances. There exist a config option to disable this behaviour
         if self.config.singularity_use_instances:
-            os.system("singularity instance.start %s%s %s" % (gpuOpt, iOptions, self.socketId))
-            os.system("singularity run %sinstance://%s %s" % (gpuOpt, self.socketId, sOptions))
+            subprocess.run("singularity instance.start %s%s %s" % (gpuOpt, iOptions, self.socketId), shell=True)
+            subprocess.Popen("singularity run %sinstance://%s %s" % (gpuOpt, self.socketId, sOptions), shell=True)
         else:
             self.sProcess = subprocess.Popen("singularity run %s%s %s" % (gpuOpt, iOptions, sOptions), shell=True)
 
@@ -65,7 +65,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
                 if wait < self.config.pyro_connect_max_wait:
                     continue
                 else:
-                    self.config.logger.debug("Waiting time exceeded. To high it up, adjust option pyro_connect_max_wait.")
+                    self.config.logger.debug("Waiting time exceeded. To high it up, adjust config option pyro_connect_max_wait.")
                     raise
             break
         self.config.logger.debug("Connected to container")

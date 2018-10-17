@@ -57,7 +57,7 @@ class MNIST(AutoSklearnBenchmark):
 class Quake(AutoSklearnBenchmark):
     def __init__(self, **kwargs):
         self.bName = "Quake"
-        self._setup(gpu=True, imgName="AutoSklearnBenchmark", **kwargs)
+        self._setup(imgName="AutoSklearnBenchmark", **kwargs)
 
 
 class PC4(AutoSklearnBenchmark):
