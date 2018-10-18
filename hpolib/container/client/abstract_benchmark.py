@@ -21,7 +21,8 @@ import hpolib.config
 
 class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
     def _setup(self, gpu=False, imgName=None, **kwargs):
-        self.socketId = self.id_generator()
+        # Create unique ID
+        self.socketId = self._id_generator()
         self.config = hpolib.config._config
 
         # Default image name is benchmark name
@@ -115,7 +116,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         """ Provides interface to use, e.g., SciPy optimizers """
         return(self.objective_function(configuration, **kwargs)['function_value'])
 
-    def id_generator(self, size=6, chars=string.ascii_uppercase + string.digits):
+    def _id_generator(self, size=6, chars=string.ascii_uppercase + string.digits):
         return ''.join(random.choice(chars) for _ in range(size))
 
     def __del__(self):
