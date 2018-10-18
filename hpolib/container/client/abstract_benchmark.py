@@ -29,9 +29,8 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         if imgName is None:
             imgName = self.bName
 
-        subprocess.run("singularity pull --name %s.simg %s:%s" % (imgName, self.config.image_source, imgName.lower()),
-                       shell=True,
-                       env={"SINGULARITY_PULLFOLDER": self.config.image_dir})
+        subprocess.run("SINGULARITY_PULLFOLDER=%s singularity pull --name %s.simg %s:%s" % (self.config.image_dir, imgName, self.config.image_source, imgName.lower()),
+                       shell=True)
         iOptions = self.config.image_dir + imgName + ".simg"
         sOptions = self.bName + " " + self.socketId
         # Option for enabling GPU support
