@@ -63,7 +63,7 @@ class BenchmarkServer():
         cs = csjson.read(csString)
         configuration = CS.Configuration(cs, cDict)
         result = self.b.objective_function(configuration, **json.loads(kwargsStr))
-        # Handle SMAC runhistory
+        # Handle SMAC status
         if 'status' in result:
             result['status'] = str(result['status'])
         return json.dumps(result, indent=None)
