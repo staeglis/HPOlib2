@@ -12,6 +12,7 @@ import ConfigSpace
 # Perform random search on the Branin function
 
 b = Covertype()
+print(b.get_meta_information())
 start = time.time()
 
 values = []

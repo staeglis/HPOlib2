@@ -13,6 +13,7 @@ import ConfigSpace
 myrng = np.abs(10)
 myrng = np.random.RandomState(myrng)
 b = Branin(rng=myrng)
+print(b.get_meta_information())
 start = time.time()
 
 values = []

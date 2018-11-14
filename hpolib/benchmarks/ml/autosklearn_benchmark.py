@@ -1,9 +1,7 @@
 import json
 import logging
 import os
-import random
 import pickle
-import string
 import tempfile
 
 import lockfile
@@ -46,9 +44,8 @@ class AutoSklearnBenchmark(AbstractBenchmark):
         super().__init__(rng)
 
     def _setup_backend(self):
-        chars = string.ascii_uppercase + string.digits
-        tmp_folder = "/tmp/hpolib-autosklearn-" + ''.join(random.choice(chars) for _ in range(10))
-        output_folder = "/tmp/hpolib-autosklearn-" + ''.join(random.choice(chars) for _ in range(10))
+        tmp_folder = tempfile.mkdtemp()
+        output_folder = tempfile.mkdtemp()
         self.backend = autosklearn.util.backend.create(
             temporary_directory=tmp_folder,
             output_directory=output_folder,
@@ -103,8 +100,8 @@ class AutoSklearnBenchmark(AbstractBenchmark):
         dependencies = ['numpy>=1.9.0',
                         'scipy>=0.14.1',
                         'scikit-learn>=0.19.0',
-                        'pynisher>=0.4.2',
-                        'auto-sklearn>=0.3.0']
+                        'pynisher==0.4.2',
+                        'auto-sklearn==0.3.0']
         dependencies = '\n'.join(dependencies)
         verify_packages(dependencies)
 
