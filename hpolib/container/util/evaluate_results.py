@@ -8,7 +8,8 @@ import json
 import os
 import sys
 
-from merge_test_performance_different_times import fill_trajectory
+from plottingscripts.utils.merge_test_performance_different_times import fill_trajectory
+import plottingscripts.plotting.plot_methods as plot_methods
 
 
 class DataEvaluation:
@@ -56,6 +57,10 @@ class DataEvaluation:
         self.parseData()
         trajContainer = self.trajectory(self.withContainer)
         trajNative = self.trajectory(self.withoutContainer)
+        print(trajContainer)
+        fig = plot_methods.plot_optimization_trace_mult_exp(time_list=trajContainer[1],
+                                                            performance_list=trajContainer[0],
+                                                            name_list=[str(i) for i in list(range(0, len(trajContainer[0])))])
 
 
 if __name__ == "__main__":

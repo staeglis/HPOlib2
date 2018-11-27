@@ -127,7 +127,7 @@ url = {http://papers.nips.cc/paper/5872-efficient-and-robust-automated-machine-l
 
     @AbstractBenchmark._check_configuration
     def objective_function(self, configuration, **kwargs):
-        fold = kwargs['fold']
+        fold = fold = kwargs.get('fold', 1)
         folds = kwargs.get('folds', 10)
         cutoff = kwargs.get('cutoff', 1800)
         memory_limit = kwargs.get('memory_limit', 3072)
