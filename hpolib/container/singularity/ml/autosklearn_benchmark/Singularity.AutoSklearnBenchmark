@@ -9,7 +9,8 @@ MAINTAINER Stefan Staeglich
     apt install git -y
     apt install python3-pip python3-numpy python-configparser cython3 -y
     pip3 install configspace
-    apt install python3-scipy python3-sklearn -y
+    pip3 install scipy
+    python3-sklearn -y
     pip3 install git+https://github.com/staeglis/HPOlib2@container
     pip3 install pyro4
     apt install swig swig3.0 python3-jsonpickle -y
