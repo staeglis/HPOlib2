@@ -5,8 +5,10 @@
 '''
 
 import json
+import numpy
 import os
 import sys
+import typing
 
 from plottingscripts.utils.merge_test_performance_different_times import fill_trajectory
 import plottingscripts.plotting.plot_methods as plot_methods
@@ -26,7 +28,7 @@ class DataEvaluation:
                 filewith = self.rootdir + d1 + "/" + d2 + "/container/run_1/traj_aclib2.json"
                 self.withContainer.append(self.loadFromFile(filewith))
                 filewithout = self.rootdir + d1 + "/" + d2 + "/native/run_1/traj_aclib2.json"
-                self.withContainer.append(self.loadFromFile(filewithout))
+                self.withoutContainer.append(self.loadFromFile(filewithout))
 
     def loadFromFile(self, filepath):
         """ Loads JSON data from a given path """
@@ -49,18 +51,21 @@ class DataEvaluation:
             for l2 in l1:
                 perf.append(l2["cost"])
                 time.append(l2["cpu_time"])
-            perfList.append(perf)
-            timeList.append(time)
-        return fill_trajectory(perfList, timeList)
+            perfList.append(numpy.array(perf))
+            timeList.append(numpy.array(time))
+        perfList, timeList = fill_trajectory(perfList, timeList)
+
+        return numpy.array(perfList), numpy.array(timeList)
 
     def run(self):
         self.parseData()
         trajContainer = self.trajectory(self.withContainer)
         trajNative = self.trajectory(self.withoutContainer)
-        print(trajContainer)
-        fig = plot_methods.plot_optimization_trace_mult_exp(time_list=trajContainer[1],
-                                                            performance_list=trajContainer[0],
-                                                            name_list=[str(i) for i in list(range(0, len(trajContainer[0])))])
+        print(len(trajContainer[0][0]))
+        print(len(trajContainer[1]))
+        fig = plot_methods.plot_optimization_trace_mult_exp(time_list=[trajContainer[1], trajNative[1]],
+                                                            performance_list=[trajContainer[0], trajNative[0]],
+                                                            name_list=["Container", "Native"])
 
 
 if __name__ == "__main__":
