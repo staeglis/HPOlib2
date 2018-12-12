@@ -4,9 +4,12 @@
 @author: Stefan Staeglich
 '''
 
+from collections import OrderedDict
 import json
+import matplotlib.pyplot
 import numpy
 import os
+import pandas
 import sys
 import typing
 
@@ -39,33 +42,34 @@ class DataEvaluation:
                 result.append(json.loads(line))
         return result
 
-    def trajectory(self, list):
+    def trajectory(self, dataList):
         """ Trajectory """
 
         perfList = []
         timeList = []
 
-        for l1 in list:
+        for l1 in dataList:
             perf = []
             time = []
             for l2 in l1:
                 perf.append(l2["cost"])
                 time.append(l2["cpu_time"])
-            perfList.append(numpy.array(perf))
-            timeList.append(numpy.array(time))
-        perfList, timeList = fill_trajectory(perfList, timeList)
+            perfList.append(perf)
+            timeList.append(time)
+        perfList, timeList = fill_trajectory(tuple(perfList), tuple(timeList))
+        perfList = numpy.array(perfList).T
+        perfList[perfList > 1] = 1
 
-        return numpy.array(perfList), numpy.array(timeList)
+        return perfList, timeList
 
     def run(self):
         self.parseData()
         trajContainer = self.trajectory(self.withContainer)
         trajNative = self.trajectory(self.withoutContainer)
-        print(len(trajContainer[0][0]))
-        print(len(trajContainer[1]))
         fig = plot_methods.plot_optimization_trace_mult_exp(time_list=[trajContainer[1], trajNative[1]],
                                                             performance_list=[trajContainer[0], trajNative[0]],
                                                             name_list=["Container", "Native"])
+        matplotlib.pyplot.savefig("plot.png")
 
 
 if __name__ == "__main__":
