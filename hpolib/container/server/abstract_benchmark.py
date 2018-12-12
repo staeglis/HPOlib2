@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+sind#!/usr/bin/env python3
 
 '''
 @author: Stefan Staeglich
@@ -17,6 +17,14 @@ import ConfigSpace as CS
 from ConfigSpace.read_and_write import json as csjson
 
 from hpolib.config import HPOlibConfig
+
+
+class BenchmarkEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, numpy.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
+
 
 @Pyro4.expose
 @Pyro4.behavior(instance_mode="single")
@@ -56,7 +64,7 @@ class BenchmarkServer():
         result = self.b.objective_function(x, **json.loads(kwargsStr))
         if 'status' in result:
             result['status'] = str(result['status'])
-        return json.dumps(result, indent=None)
+        return json.dumps(result, indent=None, cls=BenchmarkEncoder)
 
     def objective_function(self, cString, csString, kwargsStr):
         cDict = json.loads(cString)
@@ -66,7 +74,7 @@ class BenchmarkServer():
         # Handle SMAC status
         if 'status' in result:
             result['status'] = str(result['status'])
-        return json.dumps(result, indent=None)
+        return json.dumps(result, indent=None, cls=BenchmarkEncoder)
 
     def objective_function_test_list(self, xString, kwargsStr):
         x = json.loads(xString)
@@ -74,7 +82,7 @@ class BenchmarkServer():
         # Handle SMAC runhistory
         if 'status' in result:
             result['status'] = str(result['status'])
-        return json.dumps(result, indent=None)
+        return json.dumps(result, indent=None, cls=BenchmarkEncoder)
 
     def objective_function_test(self, cString, csString, kwargsStr):
         cDict = json.loads(cString)
@@ -84,7 +92,7 @@ class BenchmarkServer():
         # Handle SMAC runhistory
         if 'status' in result:
             result['status'] = str(result['status'])
-        return json.dumps(result, indent=None)
+        return json.dumps(result, indent=None, cls=BenchmarkEncoder)
 
     def test(self, argsStr, kwargsStr):
         result = self.b.test(*json.loads(argsStr), **json.loads(kwargsStr))
