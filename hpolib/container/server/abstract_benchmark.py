@@ -4,6 +4,7 @@
 @author: Stefan Staeglich
 '''
 
+import enum
 import numpy
 import os
 import random
@@ -23,6 +24,8 @@ class BenchmarkEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, numpy.ndarray):
             return obj.tolist()
+        if isinstance(obj, enum.Enum):
+            return str(obj)
         return json.JSONEncoder.default(self, obj)
 
 
@@ -72,8 +75,6 @@ class BenchmarkServer():
         configuration = CS.Configuration(cs, cDict)
         result = self.b.objective_function(configuration, **json.loads(kwargsStr))
         # Handle SMAC status
-        if 'status' in result:
-            result['status'] = str(result['status'])
         return json.dumps(result, indent=None, cls=BenchmarkEncoder)
 
     def objective_function_test_list(self, xString, kwargsStr):
