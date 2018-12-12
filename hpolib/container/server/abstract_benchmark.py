@@ -65,8 +65,6 @@ class BenchmarkServer():
     def objective_function_list(self, xString, kwargsStr):
         x = json.loads(xString)
         result = self.b.objective_function(x, **json.loads(kwargsStr))
-        if 'status' in result:
-            result['status'] = str(result['status'])
         return json.dumps(result, indent=None, cls=BenchmarkEncoder)
 
     def objective_function(self, cString, csString, kwargsStr):
