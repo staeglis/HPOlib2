@@ -60,6 +60,12 @@ class Quake(AutoSklearnBenchmark):
         self._setup(imgName="AutoSklearnBenchmark", **kwargs)
 
 
+class fri_c1_1000_25(AutoSklearnBenchmark):
+    def __init__(self, **kwargs):
+        self.bName = "fri_c1_1000_25"
+        self._setup(imgName="AutoSklearnBenchmark", **kwargs)
+
+
 class PC4(AutoSklearnBenchmark):
     def __init__(self, **kwargs):
         self.bName = "PC4"
