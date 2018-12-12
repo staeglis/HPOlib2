@@ -81,8 +81,6 @@ class BenchmarkServer():
         x = json.loads(xString)
         result = self.b.objective_function_test(x, **json.loads(kwargsStr))
         # Handle SMAC runhistory
-        if 'status' in result:
-            result['status'] = str(result['status'])
         return json.dumps(result, indent=None, cls=BenchmarkEncoder)
 
     def objective_function_test(self, cString, csString, kwargsStr):
@@ -91,15 +89,11 @@ class BenchmarkServer():
         configuration = CS.Configuration(cs, cDict)
         result = self.b.objective_function_test(configuration, **json.loads(kwargsStr))
         # Handle SMAC runhistory
-        if 'status' in result:
-            result['status'] = str(result['status'])
         return json.dumps(result, indent=None, cls=BenchmarkEncoder)
 
     def test(self, argsStr, kwargsStr):
         result = self.b.test(*json.loads(argsStr), **json.loads(kwargsStr))
         # Handle SMAC runhistory
-        if 'status' in result:
-            result['status'] = str(result['status'])
         return json.dumps(result)
 
     def get_meta_information(self):
