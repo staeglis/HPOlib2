@@ -8,7 +8,7 @@ MAINTAINER Stefan Staeglich
     apt update -y
     apt install git -y
     apt install python3-pip python3-numpy python-configparser cython3 -y
-    pip3 install configspace
+    pip3 install git+https://github.com/automl/ConfigSpace.git@master
     pip3 install scipy
     apt install python3-sklearn -y
     pip3 install git+https://github.com/staeglis/HPOlib2@container
