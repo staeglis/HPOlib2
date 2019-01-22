@@ -1,0 +1,24 @@
+Bootstrap: docker
+From: nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+
+%labels
+MAINTAINER Stefan Staeglich
+
+%post
+    apt update -y
+    apt install git -y
+    apt install python3-pip python3-numpy python-configparser cython3 -y
+    pip3 install git+https://github.com/automl/ConfigSpace.git@master
+    apt install python3-scipy -y
+    pip3 install git+https://github.com/staeglis/HPOlib2@container
+    pip3 install Theano==0.8.2
+    pip3 install lasagne
+    pip3 install sgmcmc
+    
+    mkdir /var/lib/hpolib/
+    python3 /usr/local/lib/python3.6/dist-packages/hpolib/container/util/download_data.py ml.bnn_benchmark BNNOnYearPrediction
+    chmod -R 777 /var/lib/hpolib/
+
+%runscript
+    python3 -s /usr/local/lib/python3.5/dist-packages/hpolib/container/server/abstract_benchmark.py ml.bnn_benchmark $@
+
