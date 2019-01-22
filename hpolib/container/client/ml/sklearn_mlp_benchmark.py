@@ -12,12 +12,12 @@ class MLPOnHiggs(AbstractBenchmarkClient):
 
 
 class MLPOnMnist(AbstractBenchmarkClient):
-    def __init__(self, task_id, **kwargs):
+    def __init__(self, **kwargs):
         self.bName = "MLPOnMnist"
         self._setup(**kwargs)
 
 
 class MLPOnVehicle(AbstractBenchmarkClient):
-    def __init__(self, task_id, **kwargs):
+    def __init__(self, **kwargs):
         self.bName = "MLPOnVehicle"
         self._setup(**kwargs)
