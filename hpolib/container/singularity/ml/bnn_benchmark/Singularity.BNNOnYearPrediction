@@ -11,6 +11,7 @@ MAINTAINER Stefan Staeglich
     pip3 install git+https://github.com/automl/ConfigSpace.git@master
     apt install python3-scipy -y
     pip3 install git+https://github.com/staeglis/HPOlib2@container
+    pip3 install pyro4
     pip3 install Theano==0.8.2
     pip3 install git+https://github.com/Lasagne/Lasagne.git
     pip3 install git+https://github.com/automl/sgmcmc.git
