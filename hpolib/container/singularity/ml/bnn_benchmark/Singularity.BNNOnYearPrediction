@@ -13,7 +13,7 @@ MAINTAINER Stefan Staeglich
     pip3 install git+https://github.com/staeglis/HPOlib2@container
     pip3 install Theano==0.8.2
     pip3 install git+https://github.com/Lasagne/Lasagne.git
-    pip3 install git+https://github.com/stokasto/sgmcmc.git
+    pip3 install git+https://github.com/automl/sgmcmc.git
     
     mkdir /var/lib/hpolib/
     python3 /usr/local/lib/python3.5/dist-packages/hpolib/container/util/download_data.py ml.bnn_benchmark BNNOnYearPrediction
