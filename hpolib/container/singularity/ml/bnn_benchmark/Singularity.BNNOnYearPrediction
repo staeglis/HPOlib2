@@ -7,6 +7,7 @@ MAINTAINER Stefan Staeglich
 %post
     apt update -y
     apt install git -y
+    apt install libopenblas-base libopenblas-dev libblas3 liblas-c3 -y
     apt install python3-pip python3-numpy python-configparser cython3 -y
     pip3 install git+https://github.com/automl/ConfigSpace.git@master
     apt install python3-scipy -y
