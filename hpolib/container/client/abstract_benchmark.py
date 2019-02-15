@@ -111,7 +111,7 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         jsonStr = self.b.get_meta_information()
         return json.loads(jsonStr)
 
-    def __call__ (self, configuration, **kwargs):
+    def __call__(self, configuration, **kwargs):
         """ Provides interface to use, e.g., SciPy optimizers """
         return(self.objective_function(configuration, **kwargs)['function_value'])
 
