@@ -36,6 +36,9 @@ MAINTAINER Stefan Staeglich
     python3 /usr/local/lib/python3.5/dist-packages/hpolib/container/util/download_data.py ml.bnn_benchmark BNNOnYearPrediction
     chmod -R 777 /var/lib/hpolib/
 
+%environment
+    export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH 
+
 %runscript
     THEANO_FLAGS='force_device=True, device=cuda, floatX=float32' python3 -s /usr/local/lib/python3.5/dist-packages/hpolib/container/server/abstract_benchmark.py ml.bnn_benchmark $@
 
