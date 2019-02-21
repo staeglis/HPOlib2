@@ -37,5 +37,5 @@ MAINTAINER Stefan Staeglich
     chmod -R 777 /var/lib/hpolib/
 
 %runscript
-    python3 -s /usr/local/lib/python3.5/dist-packages/hpolib/container/server/abstract_benchmark.py ml.bnn_benchmark $@
+    THEANO_FLAGS='force_device=True, device=cuda, floatX=float32' python3 -s /usr/local/lib/python3.5/dist-packages/hpolib/container/server/abstract_benchmark.py ml.bnn_benchmark $@
 
