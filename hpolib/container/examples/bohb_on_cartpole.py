@@ -1,12 +1,14 @@
 import argparse
 import os
 import pickle
+import sys
 import time
 
 import hpbandster.core.nameserver as hpns
 import hpbandster.core.result as hpres
 from hpbandster.optimizers import BOHB as BOHB
 from hpbandster.workers.hpolibbenchmark import HPOlib2Worker
+from hpbandster.icml_2018_experiments.experiments.workers.cartpole import CartpoleReducedWorker as Worker
 
 from hpolib.benchmarks.rl.cartpole import CartpoleReduced as Benchmark
 from hpolib.container.client.rl.cartpole import CartpoleReduced as BenchmarkContainer
@@ -39,8 +41,9 @@ else:
 
 if args.worker:
     print("Acting as worker")
-    time.sleep(5)   # short artificial delay to make sure the nameserver is already running
-    w = HPOlib2Worker(b, timeout=0.5, run_id=args.run_id, host=host)
+    time.sleep(20)   # short artificial delay to make sure the nameserver is already running
+    w = Worker(run_id=args.run_id, host=host)
+    w.benchmark = b
     w.load_nameserver_credentials(working_directory=args.shared_directory)
     w.run(background=False)
     exit(0)
@@ -55,7 +58,8 @@ ns_host, ns_port = NS.start()
 # worker in parallel to it. Note that this one has to run in the background to
 # not plock!
 print("Init worker")
-w = HPOlib2Worker(b, timeout=0.5, run_id=args.run_id, host=host, nameserver=ns_host, nameserver_port=ns_port)
+w = Worker(run_id=args.run_id, host=host, nameserver=ns_host, nameserver_port=ns_port)
+w.benchmark = b
 w.run(background=True)
 
 # Run an optimizer
