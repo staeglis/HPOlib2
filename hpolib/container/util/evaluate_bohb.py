@@ -51,34 +51,40 @@ class BohbEvaluation:
         timeList = []
 
         for l1 in dataList:
-            dict = {}
-            dict[-1] = - 1
-            for t, p in sorted(zip(l1["times_finished"], l1["losses"])):
-                t = float(t)
-                if t not in dict:
-                    dict[t] = p
-                elif p > dict[t]:
-                    dict[t] = p
-            print(type(list(dict.keys())[0]))
-            perfList.append(list(dict.values()))
-            timeList.append([float(t) for t in dict.keys()])
+            timeDict = {}
+            perfDict = {}
+            for t, p, b in zip(l1["times_finished"], l1["losses"], l1["budgets"]):
+                if b not in timeDict:
+                    timeDict[b] = [0, t]
+                    perfDict[b] = [100000, p]
+                else:
+                    timeDict[b].append(t)
+                    perfDict[b].append(p)
+            for b in l1["budgets"]:
+                perfDict[b][0] = perfDict[b][1]
+                perfList.append(perfDict[b])
+                timeList.append(timeDict[b])
         perfList, timeList = fill_trajectory(tuple(perfList), tuple(timeList))
         perfList = numpy.array(perfList).T
+        print(timeList)
+        print(perfList[0])
 
         return [p[1:-1] for p in perfList], timeList[1:-1]
 
     def run(self):
         self.parseData()
+        print(self.withContainer[1])
         trajContainer = self.trajectory(self.withContainer)
         trajNative = self.trajectory(self.withoutContainer)
         fig = plot_methods.plot_optimization_trace_mult_exp(time_list=[trajContainer[1], trajNative[1]],
                                                             performance_list=[trajContainer[0], trajNative[0]],
                                                             name_list=["Container", "Native"],
                                                             ylabel="loss",
-                                                            #agglomeration="median",
+                                                            agglomeration="median",
                                                             #logx=True,
-                                                            #x_min=10,
-                                                            #x_max=30000
+                                                            #x_min=1,
+                                                            #x_max=30000,
+                                                            y_max=3000
                                                             )
         matplotlib.pyplot.savefig("bohb_plot.png")
 
