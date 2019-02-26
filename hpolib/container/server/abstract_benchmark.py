@@ -32,7 +32,7 @@ class BenchmarkEncoder(json.JSONEncoder):
 @Pyro4.expose
 @Pyro4.behavior(instance_mode="single")
 class BenchmarkServer():
-    def __init__(self, benchmark, socketId):
+    def __init__(self, socketId):
         self.pyroRunning = True
         config = HPOlibConfig()
         self.logger = config.logger
@@ -115,4 +115,4 @@ if __name__ == "__main__":
     socketId = sys.argv[3]
 
     exec("from hpolib.benchmarks.%s import %s as Benchmark" % (importBase, benchmark))
-    bp = BenchmarkServer(benchmark, socketId)
+    bp = BenchmarkServer(socketId)
