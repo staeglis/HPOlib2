@@ -26,7 +26,7 @@ class BohbEvaluation:
         self.withContainer = []
         self.withoutContainer = []
         self.rootdir = path
-        self.b = 1.0
+        self.benchmark = "Cartpole"
 
     def parseData(self):
         """ Iterates over the data directories and loads data """
@@ -52,18 +52,13 @@ class BohbEvaluation:
         timeList = []
 
         for l1 in dataList:
-            timeDict = {}
-            perfDict = {}
-            for t, p, b in zip(l1["times_finished"], l1["losses"], l1["budgets"]):
-                if b not in timeDict:
-                    timeDict[b] = [0, t]
-                    perfDict[b] = [1000, p]
-                else:
-                    timeDict[b].append(t)
-                    perfDict[b].append(p)
-            perfDict[self.b][0] = perfDict[self.b][1]
-            perfList.append(perfDict[self.b])
-            timeList.append(timeDict[self.b])
+            time = l1["times_finished"]
+            perf = l1["losses"]
+            t0 = time[0]
+            for i in range(0, len(time) - 1):
+                time[i] = time[i] - t0
+            perfList.append(perf)
+            timeList.append(time)
         perfList, timeList = fill_trajectory(tuple(perfList), tuple(timeList))
         perfList = numpy.array(perfList).T
 
@@ -75,7 +70,7 @@ class BohbEvaluation:
         trajNative = self.trajectory(self.withoutContainer)
         fig = plot_methods.plot_optimization_trace_mult_exp(time_list=[trajContainer[1], trajNative[1]],
                                                             performance_list=[trajContainer[0], trajNative[0]],
-                                                            title="BOHB on Cartpole, budget b = %0.1f" % (self.b),
+                                                            title="BOHB on %s" % (self.benchmark),
                                                             name_list=["Container", "Native"],
                                                             ylabel="loss",
                                                             agglomeration="mean",
@@ -84,7 +79,7 @@ class BohbEvaluation:
                                                             #x_max=30000,
                                                             y_max=3000
                                                             )
-        matplotlib.pyplot.savefig("bohb_plot%0.1f.png" % (self.b))
+        matplotlib.pyplot.savefig("bohb_plot_%s.png" % (self.benchmark))
 
 
 if __name__ == "__main__":
