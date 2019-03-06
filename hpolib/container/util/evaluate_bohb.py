@@ -54,13 +54,19 @@ class BohbEvaluation:
         maxloss = 0
 
         for l1 in dataList:
-            time = l1["times_finished"]
-            perf = l1["losses"]
-            perfList.append(perf)
-            timeList.append(time)
-            ml = max(perf)
-            print(perf)
-            print(l1["budgets"])
+            timeDict = {}
+            perfDict = {}
+            for t, p, b in zip(l1["times_finished"], l1["losses"], l1["budgets"]):
+                if b not in timeDict:
+                    timeDict[b] = [t]
+                    perfDict[b] = [p]
+                else:
+                    timeDict[b].append(t)
+                    perfDict[b].append(p)
+            for b in l1["budgets"]:
+                perfList.append(perfDict[b])
+                timeList.append(timeDict[b])
+            ml = max(l1["losses"])
             if ml > maxloss:
                 maxloss = ml
         perfList, timeList = fill_trajectory(tuple(perfList), tuple(timeList), replace_nan=maxloss)
