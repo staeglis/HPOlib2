@@ -27,6 +27,7 @@ class BohbEvaluation:
         self.withoutContainer = []
         self.rootdir = path
         self.benchmark = "Cartpole"
+        self.xmin = 0
 
     def parseData(self):
         """ Iterates over the data directories and loads data """
@@ -50,16 +51,19 @@ class BohbEvaluation:
 
         perfList = []
         timeList = []
+        maxloss = 0
 
         for l1 in dataList:
             time = l1["times_finished"]
             perf = l1["losses"]
-            t0 = time[0]
-            for i in range(0, len(time) - 1):
-                time[i] = time[i] - t0
             perfList.append(perf)
             timeList.append(time)
-        perfList, timeList = fill_trajectory(tuple(perfList), tuple(timeList))
+            ml = max(perf)
+            print(perf)
+            print(l1["budgets"])
+            if ml > maxloss:
+                maxloss = ml
+        perfList, timeList = fill_trajectory(tuple(perfList), tuple(timeList), replace_nan=maxloss)
         perfList = numpy.array(perfList).T
 
         return [p[1:-1] for p in perfList], timeList[1:-1]
@@ -75,9 +79,10 @@ class BohbEvaluation:
                                                             ylabel="loss",
                                                             agglomeration="mean",
                                                             #logx=True,
-                                                            #x_min=1,
+                                                            x_min=self.xmin,
                                                             #x_max=30000,
-                                                            y_max=3000
+                                                            #y_max=3000,
+                                                            y_min=0
                                                             )
         matplotlib.pyplot.savefig("bohb_plot_%s.png" % (self.benchmark))
 
