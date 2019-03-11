@@ -1,18 +1,19 @@
 # What's this?
 This folder contains code for running HPOlib2 benchmarks as containers.
 
-The mechanism used is known as RPC and is implemented by Pyro4. For running the
-benchmark inside the container there exist a client class simulating the
-original API.
+The mechanism used is known as RPC and is implemented by Pyro4. There is
+a client class simulating the original API for running the benchmark
+inside the container.
 
 The client class controls the container. The RPC server is implemented by
-a server class. The server class orientates on the original API and runs inside
+a server class. The server class follows the original API and runs inside
 the container. Both classes are using JSON and Pyro4 to communicate.
 
 # How can I use it?
-There are some modified examples. To run it you need at least ConfigSpace 0.4.7.
-Also you need Pyro4. On Ubuntu you can install it with
-`sudo apt install pyro4 python3-pyro4 -y`
+There are some modified examples in the subfolder `examples`. It requires
+at least ConfigSpace 0.4.7 and Pyro4. On Ubuntu you can install it with
+* `sudo apt install pyro4 python3-pyro4 -y`
+* `pip install configspace`
 
 You can run the example with
 `python3 example.py`
