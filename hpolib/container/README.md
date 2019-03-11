@@ -20,6 +20,23 @@ You can run the example with
 At the moment it uses Singularity. So you have to install Singularity first:
 https://singularity.lbl.gov/install-linux
 
+## Config options
+There are some new configurations that can be adjusted:
+* `socket_dir`: The folder there the unix socket will be stored. It's used for the
+communication between server and client. So the folder has to be accessible
+inside and outside the container.
+* `image_dir`: The folder there the singularity images will be stored. Singularity
+can be restricted to run images only from certain paths. In this case this config
+option should be adjusted accordingly.
+* `image_source`: The base source path of the singularity images. Has only to be
+adjusted if you want to test your own images.
+* `use_global_data`: The benchmark container can provide needed data files. In
+this case they will be used by default. If you want to use the data dir defined in
+`data_dir`, you have to set `use_global_data=False`.
+* pyro_connect_max_wait: The benchmark server needs some time for getting ready, so
+benchmark client will wait for it. In case of problems the client could wait forever.
+For avoid this, there exist a time limit.
+
 # How can I build my own container?
 For providing a new benchmark as container, you have to write a client class and
 a Singularity recipe.
