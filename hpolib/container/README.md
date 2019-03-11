@@ -33,7 +33,7 @@ adjusted if you want to test your own images.
 * `use_global_data`: The benchmark container can provide needed data files. In
 this case they will be used by default. If you want to use the data dir defined in
 `data_dir`, you have to set `use_global_data=False`.
-* pyro_connect_max_wait: The benchmark server needs some time for getting ready, so
+* `pyro_connect_max_wait`: The benchmark server needs some time for getting ready, so
 benchmark client will wait for it. In case of problems the client could wait forever.
 For avoid this, there exist a time limit.
 
