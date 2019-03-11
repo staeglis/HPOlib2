@@ -13,7 +13,7 @@ the container. Both classes are using JSON and Pyro4 to communicate.
 There are some modified examples in the subfolder `examples`. It requires
 at least ConfigSpace 0.4.7 and Pyro4. On Ubuntu you can install it with
 * `sudo apt install pyro4 python3-pyro4 -y`
-* `pip install configspace`
+* `pip3 install configspace`
 
 You can run the example with
 `python3 example.py`
@@ -22,21 +22,21 @@ At the moment it uses Singularity. So you have to install Singularity first:
 https://singularity.lbl.gov/install-linux
 
 ## Config options
-There are some new configurations that can be adjusted:
-* `socket_dir`: The folder there the unix socket will be stored. It's used for the
+There are some new configuration options that can be adjusted:
+* `socket_dir`: The folder where the unix socket will be stored. It's used for the
 communication between server and client. So the folder has to be accessible
 inside and outside the container.
-* `image_dir`: The folder there the singularity images will be stored. Singularity
+* `image_dir`: The folder where the singularity images will be stored. Singularity
 can be restricted to run images only from certain paths. In this case this config
 option should be adjusted accordingly.
-* `image_source`: The base source path of the singularity images. Has only to be
-adjusted if you want to test your own images.
+* `image_source`: The base source path of the singularity images. It must be
+adjusted only if you want to test your own images.
 * `use_global_data`: The benchmark container can provide needed data files. In
-this case they will be used by default. If you want to use the data dir defined in
-`data_dir`, you have to set `use_global_data=False`.
-* `pyro_connect_max_wait`: The benchmark server needs some time for getting ready, so
+this case the container files will be used by default. If you want to use the data
+dir defined in `data_dir`, you have to set `use_global_data=False`.
+* `pyro_connect_max_wait`: The benchmark server needs a while for getting ready, so
 benchmark client will wait for it. In case of problems the client could wait forever.
-For avoid this, there exist a time limit.
+For avoiding this, there is a time limit.
 
 # How can I build my own container?
 For providing a new benchmark as container, you have to write a client class and
