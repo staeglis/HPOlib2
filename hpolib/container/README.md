@@ -49,11 +49,11 @@ hierarchy as the folder `benchmarks`.
 
 For the client class you have to write at least a constructor. Inside the constructor
 you have to set the property `self.bName`. Also you have to call the
-`self.setup(**kwargs)` method. Such a minimal example you can find in
+`self.setup(**kwargs)` method. You can find such a minimal example in
 `client/ml/svm_benchmark.py`.
 
 If you want to use a container for more than one benchmark, you maybe have to set the
-named argument imgName of the method `self._setup()`. Such an example you can find
+named argument imgName of the method `self._setup()`. You can find such an example
 in `client/synthetic_functions/levy.py`.
 
 If your benchmark needs GPU support, you have to set the named argument gpu of the
@@ -65,14 +65,14 @@ for your client class. You have to add the values to the kwargs dictionary. Look
 `client/ml/fcnet_classification.py` for getting an example.
 
 You have to check your return data types. If they aren't serializable with Pyro4,
-you think about using other data types. If this isn't possible, you have to adjust
-the encoder class BenchmarkEncoder defined in `server/abstract_benchmark.py`. The
-deserialization should be done inside your client class. For this you have to write
-some additional methods. Look in `client/ml/autosklearn_benchmark.py` for getting
-an example.
+you should think about using other data types. If this isn't possible, you have to
+adjust the encoder class `BenchmarkEncoder` defined in `server/abstract_benchmark.py`.
+The deserialization should be done inside your client class. For this you have to
+write some additional methods. Look in `client/ml/autosklearn_benchmark.py` for
+getting an example.
 
 If you provide some variants of your benchmark via sub classes and your client
-classes are getting more complicated, you should write an client base class.
+classes are getting more complicated, you should write a client base class.
 
 ## The singularity recipe
 The recipes are stored in the subfolder `singularity/`. For getting an basic idea,
@@ -98,9 +98,9 @@ permissions inside the recipe. For getting an example look in
 `singularity/ml/svm_benchmark/Singularity.SvmOnVehicle`.
 
 In the runscript section you have to provide a call to `server/abstract_benchmark.py`.
-The call has to use the python paramter `-s` for avoiding using python modules that may
+The call has to use the python parameter `-s` for avoiding using python modules that may
 be installed inside the `$HOME` folder. Also you have to provide the import base
-`importBase` such that the benchmark can be imported by the benchmark server via
+`importBase` so that the benchmark can be imported by the benchmark server via
 `importBase.benchmarkName`.
 
 For getting the full container path of `server/abstract_benchmark.py` you should check
