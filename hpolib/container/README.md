@@ -55,3 +55,35 @@ an example.
 
 If you provide some variants of your benchmark via sub classes and your client
 classes are getting more complicated, you should write an client base class.
+
+# The singularity recipe
+The recipes are stored in the subfolder 'singularity/'. For getting an basic idea,
+you should read the official documentation:
+* https://www.sylabs.io/guides/2.5/user-guide/container_recipes.html
+
+First you should look for an base image. It's easier if this fits to your development
+environment. So if you are using Ubuntu 18.04, you should think about using an Ubuntu
+18.04 image as the base image. If your benchmark needs CUDA support, you should use
+the official Docker images from NVIDIA. For getting an example look in
+'singularity/ml/bnn_benchmark/Singularity.BNNOnYearPrediction'.
+
+In the post section, you have to install (e.g. with apt and pip3) the libraries and
+Python packages that are needed for running your benchmark. It's helpful if you have
+used an clean development system. In any case you should check which libraries and
+Python packages are installed. Additionally you have to install Pyro4.
+
+If your benchmark needs some data files, you can provide the files inside the
+container folder /var/lib/hpolib/. If the download is normally be done by the
+benchmark constructor, you can call the script 'util/download_data.py'. There
+folder /var/lib/hpolib/ should be writable for everyone, so you have to adjust the
+permissions inside the recipe. For getting an example look in
+'singularity/ml/svm_benchmark/Singularity.SvmOnVehicle'.
+
+In the runscript section you have to provide a call to 'server/abstract_benchmark.py'.
+The call has to use the python paramter `-s` for avoiding using python modules that may
+be installed inside the `$HOME` folder. Also you have to provide the import base
+`importBase` such that the benchmark can be imported by the benchmark server via
+`importBase.benchmarkName`.
+
+For getting the full container path of 'server/abstract_benchmark.py' you should check
+which Python version will be provided inside the container.
