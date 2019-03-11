@@ -73,7 +73,7 @@ an example.
 If you provide some variants of your benchmark via sub classes and your client
 classes are getting more complicated, you should write an client base class.
 
-# The singularity recipe
+## The singularity recipe
 The recipes are stored in the subfolder 'singularity/'. For getting an basic idea,
 you should read the official documentation:
 * https://www.sylabs.io/guides/2.5/user-guide/container_recipes.html
