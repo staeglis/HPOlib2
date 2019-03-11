@@ -48,7 +48,7 @@ hierarchy as the folder `benchmarks`.
 
 For the client class you have to write at least a constructor. Inside the constructor
 you have to set the property `self.bName`. Also you have to call the
-`self.setup(**kwargs)`method. Such a minimal example you can find in
+`self.setup(**kwargs)` method. Such a minimal example you can find in
 `client/ml/svm_benchmark.py`.
 
 If you want to use a container for more than one benchmark, you maybe have to set the
