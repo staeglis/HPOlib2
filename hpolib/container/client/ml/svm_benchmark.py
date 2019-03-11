@@ -8,7 +8,7 @@ from hpolib.container.client.abstract_benchmark import AbstractBenchmarkClient
 class SvmOnMnist(AbstractBenchmarkClient):
     def __init__(self, **kwargs):
         self.bName = "SvmOnMnist"
-        self.setup(**kwargs)
+        self._setup(**kwargs)
 
 
 class SvmOnVehicle(AbstractBenchmarkClient):

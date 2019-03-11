@@ -76,8 +76,8 @@ class BohbEvaluation:
 
     def run(self):
         self.parseData()
-        trajContainer = self.trajectory(self.withContainer)
-        trajNative = self.trajectory(self.withoutContainer)
+        trajContainer = self.trajectory(self.withContainer[0:20])
+        trajNative = self.trajectory(self.withoutContainer[0:20])
         fig = plot_methods.plot_optimization_trace_mult_exp(time_list=[trajContainer[1], trajNative[1]],
                                                             performance_list=[trajContainer[0], trajNative[0]],
                                                             title="BOHB on %s" % (self.benchmark),
