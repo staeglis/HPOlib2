@@ -16,5 +16,5 @@ MAINTAINER Stefan Staeglich
     pip3 install torchvision
 
 %runscript
-    python3 -s /usr/local/lib/python3.5/dist-packages/hpolib/container/server/abstract_benchmark.py ml.conv_net $@
+    python3 -s /usr/local/lib/python3.6/dist-packages/hpolib/container/server/abstract_benchmark.py ml.conv_net $@
 
